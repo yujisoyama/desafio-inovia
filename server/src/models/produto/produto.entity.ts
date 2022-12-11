@@ -6,6 +6,9 @@ export class Produto {
     id: ObjectID;
 
     @Column()
+    nome: string;
+
+    @Column()
     preco: number;
     
     @Column()

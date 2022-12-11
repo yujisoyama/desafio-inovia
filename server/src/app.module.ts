@@ -4,12 +4,15 @@ import { ClientesModule } from './models/cliente/clientes.module';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
     PedidosModule,
     ProdutosModule,
-    ClientesModule,],
+    ClientesModule,
+    ConfigModule.forRoot()
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

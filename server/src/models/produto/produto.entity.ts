@@ -1,28 +1,34 @@
-import { Column, Entity, ObjectID, ObjectIdColumn, PrimaryColumn } from "typeorm";
+import { Column, Entity, ObjectIdColumn } from "typeorm";
+
+export interface ICaracteristicas {
+    nome: string;
+    descricao: string;
+    valor: string;
+}
 
 @Entity('produtos')
 export class Produto {
     @ObjectIdColumn()
-    id: ObjectID;
+    _id: string;
 
-    @Column()
+    @Column({ unique: true })
     nome: string;
 
     @Column()
     preco: number;
-    
+
     @Column()
     marca: string;
-    
+
     @Column()
     imposto: number;
-    
+
     @Column()
     estoque: number;
-    
-    @Column()
+
+    @Column({ unique: true })
     imagem: string;
-    
-    @Column()
-    características: object;
+
+    @Column({ nullable: true })
+    caracteristicas: ICaracteristicas[];
 }

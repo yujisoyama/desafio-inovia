@@ -16,7 +16,7 @@ export class ClientesController {
             if (result instanceof CustomBadRequests) {
                 return res.status(HttpStatus.BAD_REQUEST).json(result);
             }
-            return res.status(HttpStatus.CREATED).json(result);
+            return res.json(result);
         } catch (error) {
             console.log(error);
             throw new HttpException("Unexpected Error", HttpStatus.INTERNAL_SERVER_ERROR);

@@ -27,6 +27,7 @@ import { Produto } from './models/produto/produto.entity';
       synchronize: true,
     }),
     TypeOrmModule.forRoot({
+      name: 'mongo',
       type: 'mongodb',
       host: process.env.MONGODB_HOST,
       port: Number(process.env.MONGODB_PORT),
@@ -35,7 +36,8 @@ import { Produto } from './models/produto/produto.entity';
       database: process.env.MONGODB_DB,
       entities: [Produto],
       synchronize: true,
-    })
+    }),
+    
   ],
   controllers: [AppController],
   providers: [AppService],

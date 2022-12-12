@@ -1,8 +1,8 @@
-import { IProdutos, IQuantidades } from "../pedido.entity";
+import { Produtos, Quantidades } from "../dto/criar-pedido.dto";
 
 export interface ICriarPedido {
-    produtos: IProdutos[];
-    quantidades: IQuantidades[];
+    produtos: Produtos[];
+    quantidades: Quantidades[];
     total_produtos: number;
     total_pedido: number;
 }

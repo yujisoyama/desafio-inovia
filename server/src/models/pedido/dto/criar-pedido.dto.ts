@@ -1,12 +1,39 @@
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
-import { IProdutos, IQuantidades } from "../pedido.entity";
+import { Type } from "class-transformer";
+import { ArrayMinSize, IsArray, IsNotEmpty, IsNumber, IsString, ValidateNested } from "class-validator";
 
+export class Produtos {
+    @IsString()
+    @IsNotEmpty()
+    produtoId: string;
+
+    @IsString()
+    @IsNotEmpty()
+    nome: string;
+}
+
+export class Quantidades {
+    @IsString()
+    @IsNotEmpty()
+    produtoId: string;
+
+    @IsNumber()
+    @IsNotEmpty()
+    quantidade: number;
+}
 export class CriarPedidoDto {
     @IsNotEmpty()
-    produtos: IProdutos[];
+    @IsArray()
+    @ArrayMinSize(1)
+    @ValidateNested({ each: true })
+    @Type(() => Produtos)
+    produtos: Produtos[];
 
     @IsNotEmpty()
-    quantidades: IQuantidades[];
+    @IsArray()
+    @ArrayMinSize(1)
+    @ValidateNested({ each: true })
+    @Type(() => Quantidades)
+    quantidades: Quantidades[];
 
     @IsNotEmpty()
     @IsNumber()

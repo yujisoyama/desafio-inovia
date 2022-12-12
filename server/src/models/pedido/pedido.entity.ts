@@ -1,15 +1,6 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Cliente } from "../cliente/cliente.entity";
-
-export interface IProdutos {
-    produtoId: string;
-    nome: string;
-}
-
-export interface IQuantidades {
-    produtoId: string;
-    quantidade: number;
-}
+import { Produtos, Quantidades } from "./dto/criar-pedido.dto";
 
 @Entity('pedidos')
 export class Pedido {
@@ -21,10 +12,10 @@ export class Pedido {
     clienteId: string;
 
     @Column('jsonb')
-    produtos: IProdutos[];
+    produtos: Produtos[];
 
     @Column('jsonb')
-    quantidades: IQuantidades[];
+    quantidades: Quantidades[];
 
     @Column()
     total_produtos: number;

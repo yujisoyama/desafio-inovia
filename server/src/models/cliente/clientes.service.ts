@@ -42,6 +42,11 @@ export class ClientesService {
         return await this.clienteRepository.findOneBy({ login });
     }
 
+    async getClienteProfile(clienteId: number): Promise<Partial<Cliente>> {
+        const { senha: _, ...cliente } = await this.clienteRepository.findOneBy({ id: clienteId });
+        return cliente;
+    }
+
     async atualizarCliente(atualizarCliente: IAtualizarCliente, clienteId: number): Promise<CustomBadRequests | Partial<Cliente>> {
         const emailAlreadyUsing = await this.clienteRepository.createQueryBuilder("cliente")
             .where("LOWER(cliente.email) = LOWER(:email)", { email: atualizarCliente.email })

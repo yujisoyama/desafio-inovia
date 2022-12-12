@@ -33,7 +33,7 @@ export class ClientesController {
     @HttpCode(200)
     async getClienteLogged(@Req() req: any) {
         try {
-            return req.user;
+            return await this.clienteService.getClienteProfile(req.user.id);
         } catch (error) {
             console.log(error);
             throw new HttpException("Unexpected Error", HttpStatus.INTERNAL_SERVER_ERROR);

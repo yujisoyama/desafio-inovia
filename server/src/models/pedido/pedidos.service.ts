@@ -15,4 +15,12 @@ export class PedidosService {
         await this.pedidoRepository.save(novoPedido);
         return novoPedido;
     }
+
+    async getPedidosByCliente(clienteId: string) {
+        return await this.pedidoRepository.find({
+            where: {
+                clienteId
+            }
+        });
+    }
 }

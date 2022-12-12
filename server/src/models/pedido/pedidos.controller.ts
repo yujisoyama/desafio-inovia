@@ -29,7 +29,8 @@ export class PedidosController {
             const result = await this.pedidosServices.getPedidosByCliente(req.user);
             return result;
         } catch (error) {
-            
+            console.log(error);
+            throw new HttpException("Unexpected Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

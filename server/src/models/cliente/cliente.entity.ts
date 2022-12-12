@@ -13,24 +13,24 @@ export class Cliente {
     nome: string;
 
     @Column()
-    endereço: string;
+    endereco: string;
 
-    @Column()
+    @Column({ unique: true })
     telefone: string;
 
-    @Column()
+    @Column({ unique: true })
     email: string;
 
-    @Column()
-    data_nascimento: Date;
+    @Column({type: 'date'})
+    data_nascimento: string;
 
-    @Column()
+    @Column({ unique: true })
     login: string;
 
     @Column()
     senha: string;
 
-    @Column()
+    @Column({ nullable: true })
     foto_perfil: string
 
     @OneToMany(() => Pedido, pedido => pedido.id)

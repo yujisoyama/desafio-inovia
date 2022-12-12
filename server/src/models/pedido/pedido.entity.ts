@@ -1,13 +1,13 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Cliente } from "../cliente/cliente.entity";
 
-interface IProdutos {
-    id: string;
+export interface IProdutos {
+    produtoId: string;
     nome: string;
 }
 
-interface IQuantidades {
-    id: string;
+export interface IQuantidades {
+    produtoId: string;
     quantidade: number;
 }
 
@@ -32,6 +32,6 @@ export class Pedido {
     @Column()
     total_pedido: number;
 
-    @Column()
+    @CreateDateColumn()
     data: Date;
 }

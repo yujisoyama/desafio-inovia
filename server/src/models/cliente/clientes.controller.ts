@@ -1,5 +1,8 @@
-import { Body, Controller, Get, HttpCode, HttpException, HttpStatus, Param, Post, Req, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpException, HttpStatus, Post, Req, Res, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
 import { CustomBadRequests } from 'src/utils/CustomBadRequests';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ClientesService } from './clientes.service';
@@ -51,5 +54,24 @@ export class ClientesController {
             console.log(error);
             throw new HttpException("Unexpected Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Post('/profile/avatar')
+    @UseInterceptors(FileInterceptor('avatar', {
+        storage: diskStorage({
+            destination: 'uploads/',
+            filename(req: any, file, callback) {
+                const suffix = req.user.id;
+                const ext = extname(file.originalname);
+                const fileName = `${suffix}_avatar${ext}`;
+                callback(null, fileName);
+            },
+        })
+    }))
+    @HttpCode(200)
+    async editProfileAvatar(@UploadedFile() file: Express.Multer.File, @Req() req: any) {
+        console.log(file);
+        await this.clienteService.atualizarAvatar(file.filename, req.user.id)
     }
 }

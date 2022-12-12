@@ -10,6 +10,9 @@ import { Cliente } from './models/cliente/cliente.entity';
 import { Pedido } from './models/pedido/pedido.entity';
 import { Produto } from './models/produto/produto.entity';
 import { AuthModule } from './models/auth/auth.module';
+import { MulterModule } from '@nestjs/platform-express';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -39,7 +42,12 @@ import { AuthModule } from './models/auth/auth.module';
       entities: [Produto],
       synchronize: true,
     }),
-    
+    MulterModule.register({
+      dest: './uploads/'
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'uploads')
+    })
   ],
   controllers: [AppController],
   providers: [AppService],

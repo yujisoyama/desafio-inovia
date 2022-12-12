@@ -42,7 +42,7 @@ export class ClientesService {
         return await this.clienteRepository.findOneBy({ login });
     }
 
-    async atualizarCliente(atualizarCliente: IAtualizarCliente, clienteId: number) {
+    async atualizarCliente(atualizarCliente: IAtualizarCliente, clienteId: number): Promise<CustomBadRequests | Partial<Cliente>> {
         const emailAlreadyUsing = await this.clienteRepository.createQueryBuilder("cliente")
             .where("LOWER(cliente.email) = LOWER(:email)", { email: atualizarCliente.email })
             .getOne();
@@ -64,6 +64,12 @@ export class ClientesService {
 
         const hashedPassword = await bcrypt.hash(atualizarCliente.senha, 10);
         await this.clienteRepository.update({ id: clienteId }, { ...atualizarCliente, senha: hashedPassword });
-        return await this.clienteRepository.findOneBy({ id: clienteId });
+        const { senha: _, ...cliente } = await this.clienteRepository.findOneBy({ id: clienteId });
+        return cliente;
+    }
+
+    async atualizarAvatar(foto_perfil: string, clienteId: number) {
+        const avatarUrl = `http://localhost:3000/${foto_perfil}`
+        await this.clienteRepository.update({ id: clienteId }, { foto_perfil: avatarUrl });
     }
 }

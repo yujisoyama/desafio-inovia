@@ -3,10 +3,6 @@ import { IProdutos, IQuantidades } from "../pedido.entity";
 
 export class CriarPedidoDto {
     @IsNotEmpty()
-    @IsString()
-    clienteId: string;
-
-    @IsNotEmpty()
     produtos: IProdutos[];
 
     @IsNotEmpty()

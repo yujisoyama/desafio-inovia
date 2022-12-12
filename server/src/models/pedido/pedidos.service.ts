@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CustomBadRequests } from 'src/utils/CustomBadRequests';
 import { Repository } from 'typeorm';
+import { Cliente } from '../cliente/cliente.entity';
 import { ICriarPedido } from './interfaces/pedidos.interfaces';
 import { Pedido } from './pedido.entity';
 
@@ -9,8 +10,8 @@ import { Pedido } from './pedido.entity';
 export class PedidosService {
     constructor(@InjectRepository(Pedido) private pedidoRepository: Repository<Pedido>) { }
 
-    async criarPedido(criarPedido: ICriarPedido): Promise<Pedido> {
-        const novoPedido = this.pedidoRepository.create(criarPedido);
+    async criarPedido(criarPedido: ICriarPedido, cliente: Partial<Cliente>): Promise<Pedido> {
+        const novoPedido = this.pedidoRepository.create({ ...criarPedido, clienteId: cliente.id });
         await this.pedidoRepository.save(novoPedido);
         return novoPedido;
     }

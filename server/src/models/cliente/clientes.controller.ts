@@ -1,8 +1,9 @@
-import { Body, Controller, Get, HttpCode, HttpException, HttpStatus, Post, Req, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpException, HttpStatus, Param, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
 import { CustomBadRequests } from 'src/utils/CustomBadRequests';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ClientesService } from './clientes.service';
+import { AtualizarClienteDto } from './dto/atualizar-cliente.dto';
 import { CriarClienteDto } from './dto/criar-cliente.dto';
 
 @Controller('clientes')
@@ -30,6 +31,18 @@ export class ClientesController {
     async getClienteLogged(@Req() req: any) {
         try {
             return req.user;
+        } catch (error) {
+            console.log(error);
+            throw new HttpException("Unexpected Error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Post('/:clienteId')
+    @HttpCode(200)
+    async updateClienteLogged(@Param('clienteId') clienteId: string, @Body() atualizarClieteDto: AtualizarClienteDto, @Req() req: any) {
+        try {
+            
         } catch (error) {
             console.log(error);
             throw new HttpException("Unexpected Error", HttpStatus.INTERNAL_SERVER_ERROR);

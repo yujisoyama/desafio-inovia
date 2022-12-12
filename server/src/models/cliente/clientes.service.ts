@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CustomBadRequests } from 'src/utils/CustomBadRequests';
 import { Repository } from 'typeorm';
 import { Cliente } from './cliente.entity';
-import { ICriarCliente } from './interfaces/cliente.interfaces';
+import { IAtualizarCliente, ICriarCliente } from './interfaces/cliente.interfaces';
 
 import * as bcrypt from 'bcrypt';
 
@@ -11,7 +11,7 @@ import * as bcrypt from 'bcrypt';
 export class ClientesService {
     constructor(@InjectRepository(Cliente) private clienteRepository: Repository<Cliente>) { }
 
-    async criarCliente(criarCliente: ICriarCliente): Promise<CustomBadRequests | Cliente> {
+    async criarCliente(criarCliente: ICriarCliente): Promise<CustomBadRequests | Partial<Cliente>> {
         const emailAlreadyUsing = await this.clienteRepository.createQueryBuilder("cliente")
             .where("LOWER(cliente.email) = LOWER(:email)", { email: criarCliente.email })
             .getOne();
@@ -34,11 +34,15 @@ export class ClientesService {
         const hashedPassword = await bcrypt.hash(criarCliente.senha, 10);
         const novoCliente = this.clienteRepository.create({ ...criarCliente, senha: hashedPassword });
         await this.clienteRepository.save(novoCliente);
-
-        return novoCliente;
+        const { senha: _, ...cliente } = novoCliente;
+        return cliente;
     }
 
     async getClienteByLogin(login: string): Promise<Cliente> {
         return await this.clienteRepository.findOneBy({ login });
     }
+
+    // async atualizarCliente(atualizarCliente: IAtualizarCliente, clienteId: string): Promise<Partial<Cliente> | CustomBadRequests> {
+    //     const cliente = await this.clienteRepository.findOneBy({ id: clienteId });
+    // }
 }

@@ -16,11 +16,9 @@ export class PedidosService {
         return novoPedido;
     }
 
-    async getPedidosByCliente(clienteId: string) {
-        return await this.pedidoRepository.find({
-            where: {
-                clienteId
-            }
-        });
+    async getPedidosByCliente(clienteId: number) {
+        return await this.pedidoRepository.createQueryBuilder('pedido')
+            .where('pedido.clienteId = :clienteId', { clienteId: clienteId })
+            .getMany();
     }
 }

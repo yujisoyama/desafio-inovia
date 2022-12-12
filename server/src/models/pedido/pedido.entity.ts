@@ -9,7 +9,7 @@ export class Pedido {
 
     @ManyToOne(() => Cliente, cliente => cliente.id)
     @JoinColumn({ name: 'clienteId' })
-    clienteId: string;
+    clienteId: number;
 
     @Column('jsonb')
     produtos: Produtos[];

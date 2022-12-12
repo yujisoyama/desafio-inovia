@@ -7,7 +7,7 @@ import { Pedido } from "../pedido/pedido.entity";
 @Entity('clientes')
 export class Cliente {
     @PrimaryGeneratedColumn()
-    id: string;
+    id: number;
 
     @Column()
     nome: string;
@@ -21,7 +21,7 @@ export class Cliente {
     @Column({ unique: true })
     email: string;
 
-    @Column({type: 'date'})
+    @Column({ type: 'date' })
     data_nascimento: string;
 
     @Column({ unique: true })

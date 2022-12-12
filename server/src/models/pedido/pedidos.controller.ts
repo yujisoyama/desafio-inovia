@@ -26,7 +26,7 @@ export class PedidosController {
     @HttpCode(200)
     async getPedidosByCliente(@Req() req: any) {
         try {
-            const result = await this.pedidosServices.getPedidosByCliente(req.user);
+            const result = await this.pedidosServices.getPedidosByCliente(req.user.id);
             return result;
         } catch (error) {
             console.log(error);

@@ -9,12 +9,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Cliente } from './models/cliente/cliente.entity';
 import { Pedido } from './models/pedido/pedido.entity';
 import { Produto } from './models/produto/produto.entity';
+import { AuthModule } from './models/auth/auth.module';
 
 @Module({
   imports: [
     PedidosModule,
     ProdutosModule,
     ClientesModule,
+    AuthModule,
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',

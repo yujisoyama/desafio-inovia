@@ -37,4 +37,8 @@ export class ClientesService {
 
         return novoCliente;
     }
+
+    async getClienteByLogin(login: string): Promise<Cliente> {
+        return await this.clienteRepository.findOneBy({ login });
+    }
 }

@@ -16,9 +16,18 @@ export class PedidosService {
         return novoPedido;
     }
 
-    async getPedidosByCliente(clienteId: number) {
+    async getPedidosByCliente(clienteId: number): Promise<Pedido[]> {
         return await this.pedidoRepository.createQueryBuilder('pedido')
             .where('pedido.clienteId = :clienteId', { clienteId: clienteId })
+            .orderBy('pedido.data', 'DESC')
             .getMany();
+    }
+
+    async getAllPedidos(): Promise<Pedido[]> {
+        return await this.pedidoRepository.find({
+            order: {
+                data: 'DESC'
+            }
+        });
     }
 }

@@ -22,12 +22,24 @@ export class PedidosController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Get()
+    @Get('/cliente')
     @HttpCode(200)
     async getPedidosByCliente(@Req() req: any) {
         try {
             const result = await this.pedidosServices.getPedidosByCliente(req.user.id);
             return result;
+        } catch (error) {
+            console.log(error);
+            throw new HttpException("Unexpected Error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Get()
+    @HttpCode(200)
+    async getAllPedidos() {
+        try {
+            return await this.pedidosServices.getAllPedidos();
         } catch (error) {
             console.log(error);
             throw new HttpException("Unexpected Error", HttpStatus.INTERNAL_SERVER_ERROR);

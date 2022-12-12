@@ -42,7 +42,28 @@ export class ClientesService {
         return await this.clienteRepository.findOneBy({ login });
     }
 
-    // async atualizarCliente(atualizarCliente: IAtualizarCliente, clienteId: string): Promise<Partial<Cliente> | CustomBadRequests> {
-    //     const cliente = await this.clienteRepository.findOneBy({ id: clienteId });
-    // }
+    async atualizarCliente(atualizarCliente: IAtualizarCliente, clienteId: number) {
+        const emailAlreadyUsing = await this.clienteRepository.createQueryBuilder("cliente")
+            .where("LOWER(cliente.email) = LOWER(:email)", { email: atualizarCliente.email })
+            .getOne();
+        if (emailAlreadyUsing && emailAlreadyUsing.id !== clienteId) {
+            return new CustomBadRequests('Email já está sendo usado', 'email');
+        }
+
+        const telefoneAlreadyUsing = await this.clienteRepository.findOneBy({ telefone: atualizarCliente.telefone });
+        if (telefoneAlreadyUsing && telefoneAlreadyUsing.id !== clienteId) {
+            return new CustomBadRequests('Telefone já está sendo usado', 'telefone');
+        }
+
+        const loginAlreadyUsing = await this.clienteRepository.createQueryBuilder("cliente")
+            .where("LOWER(cliente.login) = LOWER(:login)", { login: atualizarCliente.login })
+            .getOne();
+        if (loginAlreadyUsing && loginAlreadyUsing.id !== clienteId) {
+            return new CustomBadRequests('Login já está sendo usado', 'login');
+        }
+
+        const hashedPassword = await bcrypt.hash(atualizarCliente.senha, 10);
+        await this.clienteRepository.update({ id: clienteId }, { ...atualizarCliente, senha: hashedPassword });
+        return await this.clienteRepository.findOneBy({ id: clienteId });
+    }
 }

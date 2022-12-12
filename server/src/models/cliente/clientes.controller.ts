@@ -38,11 +38,15 @@ export class ClientesController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Post('/:clienteId')
+    @Post('/profile')
     @HttpCode(200)
-    async updateClienteLogged(@Param('clienteId') clienteId: string, @Body() atualizarClieteDto: AtualizarClienteDto, @Req() req: any) {
+    async updateClienteLogged(@Body() atualizarClienteDto: AtualizarClienteDto, @Req() req: any, @Res() res: Response) {
         try {
-            
+            const result = await this.clienteService.atualizarCliente(atualizarClienteDto, req.user.id);
+            if (result instanceof CustomBadRequests) {
+                return res.status(HttpStatus.BAD_REQUEST).json(result);
+            }
+            return res.json(result);
         } catch (error) {
             console.log(error);
             throw new HttpException("Unexpected Error", HttpStatus.INTERNAL_SERVER_ERROR);

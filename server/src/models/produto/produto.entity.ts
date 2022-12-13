@@ -15,6 +15,9 @@ export class Produto {
     nome: string;
 
     @Column()
+    sobre: string;
+
+    @Column()
     preco: number;
 
     @Column()

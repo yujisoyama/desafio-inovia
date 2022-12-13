@@ -71,7 +71,12 @@ export class ClientesController {
     }))
     @HttpCode(200)
     async editProfileAvatar(@UploadedFile() file: Express.Multer.File, @Req() req: any) {
-        console.log(file);
-        await this.clienteService.atualizarAvatar(file.filename, req.user.id)
+        try {
+            await this.clienteService.atualizarAvatar(file.filename, req.user.id);
+            return file.destination;
+        } catch (error) {
+            console.log(error);
+            throw new HttpException("Unexpected Error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

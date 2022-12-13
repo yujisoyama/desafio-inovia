@@ -20,5 +20,16 @@ export class ProdutosService {
         return novoProduto;
     }
 
-    
+    async getAllProdutos(): Promise<Produto[]> {
+        return await this.produtoRepository.find({
+            order: {
+                nome: 'ASC'
+            }
+        })
+    }
+
+    async seedProduto(criarProduto: ICriarProduto) {
+        const seedProduto = this.produtoRepository.create(criarProduto);
+        await this.produtoRepository.save(seedProduto);
+    }
 }

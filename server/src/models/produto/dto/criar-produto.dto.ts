@@ -7,6 +7,10 @@ export class CriarProdutoDto {
     nome: string;
 
     @IsNotEmpty()
+    @IsString()
+    sobre: string;
+
+    @IsNotEmpty()
     @IsNumber()
     preco: number;
 

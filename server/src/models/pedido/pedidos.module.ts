@@ -3,9 +3,13 @@ import { PedidosController } from './pedidos.controller';
 import { Module } from '@nestjs/common';
 import { Pedido } from './pedido.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ProdutosModule } from '../produto/produtos.module';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Pedido])],
+    imports: [
+        ProdutosModule,
+        TypeOrmModule.forFeature([Pedido])
+    ],
     controllers: [PedidosController,],
     providers: [PedidosService,],
 })

@@ -1,5 +1,6 @@
 import { Body, Controller, Get, HttpCode, HttpException, HttpStatus, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
+import { CustomBadRequests } from 'src/utils/CustomBadRequests';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CriarPedidoDto } from './dto/criar-pedido.dto';
 import { PedidosService } from './pedidos.service';
@@ -14,6 +15,9 @@ export class PedidosController {
     async criarPedido(@Body() criarPedidoDto: CriarPedidoDto, @Req() req: any, @Res() res: Response) {
         try {
             const result = await this.pedidosServices.criarPedido(criarPedidoDto, req.user);
+            if (result instanceof CustomBadRequests) {
+                return res.status(HttpStatus.BAD_REQUEST).json(result);
+            }
             return res.json(result);
         } catch (error) {
             console.log(error);

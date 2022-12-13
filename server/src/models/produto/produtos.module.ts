@@ -8,5 +8,6 @@ import { Produto } from './produto.entity';
     imports: [TypeOrmModule.forFeature([Produto], 'mongo')],
     controllers: [ProdutosController,],
     providers: [ProdutosService,],
+    exports: [ProdutosService],
 })
 export class ProdutosModule { }

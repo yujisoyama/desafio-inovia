@@ -1,4 +1,4 @@
-import { Column, Entity, ObjectIdColumn } from "typeorm";
+import { Column, Entity, ObjectID, ObjectIdColumn } from "typeorm";
 
 export interface ICaracteristicas {
     nome: string;
@@ -9,7 +9,7 @@ export interface ICaracteristicas {
 @Entity('produtos')
 export class Produto {
     @ObjectIdColumn()
-    _id: string;
+    _id: ObjectID;
 
     @Column({ unique: true })
     nome: string;

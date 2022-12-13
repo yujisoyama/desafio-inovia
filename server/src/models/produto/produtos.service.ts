@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CustomBadRequests } from 'src/utils/CustomBadRequests';
-import { Repository } from 'typeorm';
+import { ObjectID, Repository } from 'typeorm';
 import { ICriarProduto } from './interfaces/produto.interfaces';
 import { Produto } from './produto.entity';
 
@@ -31,5 +31,13 @@ export class ProdutosService {
     async seedProduto(criarProduto: ICriarProduto) {
         const seedProduto = this.produtoRepository.create(criarProduto);
         await this.produtoRepository.save(seedProduto);
+    }
+
+    async getProdutoById(produtoId: ObjectID): Promise<Produto> {
+        return await this.produtoRepository.findOneBy({ _id: produtoId });
+    }
+
+    async updateEstoqueProduto(produto: Produto, quantidade: number) {
+        await this.produtoRepository.update({ _id: produto._id }, { ...produto, estoque: produto.estoque - quantidade });
     }
 }

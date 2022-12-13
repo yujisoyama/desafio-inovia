@@ -1,10 +1,13 @@
 import './styles/main.css'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 
 function App() {
   return (
-    <div className='bg-slate-500'>
-      Hello World
-    </div>
+    <Router>
+      <Routes>
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </Router>
   )
 }
 export default App

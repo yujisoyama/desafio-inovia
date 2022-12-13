@@ -7,20 +7,16 @@ module.exports = {
     './index.html'
   ],
   theme: {
-    extend: {
-      colors: {
-
-      },
+    colors: {
     },
     screens: {
-
     },
     fontFamily: {
-
+      noto: ['Noto Sans', 'sans-serif'],
+      open: ['Open Sans', 'sans-serif']
     },
     extend: {
       backgroundImage: {
-
       },
     },
   },

@@ -6,6 +6,7 @@ module.exports = {
     './src/**/*.tsx',
     './index.html'
   ],
+  important: '#root',
   theme: {
     colors: {
       background: '#031827',
@@ -15,7 +16,7 @@ module.exports = {
       highlight: '#39DCC1',
       buttonText: '#052841',
       button: '#39DCC1',
-      buttonHover: '#43FFE0',
+      buttonHover: '#77FFE9',
       alertBackground: '#eb9393',
       alert: '#EF4565'
     },

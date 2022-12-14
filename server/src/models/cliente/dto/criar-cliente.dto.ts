@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsNumberString, IsString, MinLength,  } from "class-validator";
+import { IsDate, IsDateString, IsEmail, IsNotEmpty, IsNumberString, IsString, MinLength,  } from "class-validator";
 
 export class CriarClienteDto {
     @IsNotEmpty()
@@ -20,6 +20,7 @@ export class CriarClienteDto {
 
     @IsNotEmpty()
     @IsString()
+    @IsDateString()
     data_nascimento: string;
 
     @IsNotEmpty()

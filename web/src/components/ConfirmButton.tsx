@@ -1,5 +1,5 @@
 import LoadingButton from '@mui/lab/LoadingButton';
-import { FormEvent, useState } from 'react';
+import { FormEvent } from 'react';
 
 interface IConfirmButtonProps {
     label: string;
@@ -8,8 +8,6 @@ interface IConfirmButtonProps {
 }
 
 export const ConfirmButton = ({ label, isLoading, onClick }: IConfirmButtonProps) => {
-    const [isHover, setIsHover] = useState(false);
-
     return (
         <LoadingButton
             onClick={onClick}

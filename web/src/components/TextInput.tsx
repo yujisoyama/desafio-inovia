@@ -1,13 +1,14 @@
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { styled } from '@mui/material/styles';
+import { ChangeEvent, InputHTMLAttributes, useState } from 'react';
 
-interface ITextInputProps {
+interface ITextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
     label: string;
-    type: string;
 }
 
-export const TextInput = ({ label, type }: ITextInputProps) => {
+
+export const TextInput = ({ id, name, placeholder, type, label }: ITextFieldProps) => {
     const CssTextField = styled(TextField)({
         '& label.MuiInputLabel-root': {
             color: '#90b4ce',
@@ -40,8 +41,11 @@ export const TextInput = ({ label, type }: ITextInputProps) => {
         >
             <CssTextField
                 fullWidth
+                id={id}
+                name={name}
+                placeholder={placeholder}
+                type={type}
                 label={label}
-                id="custom-css-outlined-input"
                 sx={{
                     input: { color: '#fffffe' }
                 }}

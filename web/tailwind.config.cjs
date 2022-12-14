@@ -8,12 +8,14 @@ module.exports = {
   ],
   theme: {
     colors: {
-      background: '#052841',
-      backgroundLight: '#094067',
+      background: '#031827',
+      backgroundLight: '#0B324D',
       main: '#fffffe',
       secondary: '#90b4ce',
+      highlight: '#39DCC1',
       buttonText: '#052841',
       button: '#39DCC1',
+      buttonHover: '#43FFE0',
       alertBackground: '#eb9393',
       alert: '#EF4565'
     },

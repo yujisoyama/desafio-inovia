@@ -1,21 +1,35 @@
-import LoadingButton from '@mui/lab/LoadingButton';
-import { FormEvent } from 'react';
+import LoadingButton, { LoadingButtonProps } from '@mui/lab/LoadingButton';
+import { ButtonHTMLAttributes, FormEvent } from 'react';
+import { styled } from '@mui/material/styles';
+import { teal } from '@mui/material/colors';
 
-interface ICancelButtonProps {
+interface ICancelButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     label: string;
     isLoading: boolean;
-    onClick: (event: FormEvent) => void
+    onClick?: (event: FormEvent) => void
 }
 
-export const CancelButton = ({ label, isLoading, onClick }: ICancelButtonProps) => {
+const ColorLoadingButton = styled(LoadingButton)<LoadingButtonProps>(({ theme }) => ({
+    color: theme.palette.getContrastText(teal[200]),
+    backgroundColor: 'transparent',
+    borderColor: teal['A400'],
+    '&:hover': {
+        borderColor: teal['A200'],
+    },
+}));
+
+export const CancelButton = ({ label, isLoading, type, onClick }: ICancelButtonProps) => {
     return (
-        <LoadingButton
+        <ColorLoadingButton
+            type={type}
             onClick={onClick}
             loading={isLoading}
             variant="outlined"
-            className='border border-button hover:border-buttonHover'
+            sx={{
+                color: '#77FFE9'
+            }}
         >
-            <p className='text-highlight font-open font-extrabold py-1'>{label}</p>
-        </LoadingButton>
+            {label}
+        </ColorLoadingButton>
     )
 }

@@ -1,21 +1,46 @@
-import LoadingButton from '@mui/lab/LoadingButton';
-import { FormEvent } from 'react';
+import LoadingButton, { LoadingButtonProps } from '@mui/lab/LoadingButton';
+import { ButtonHTMLAttributes, FormEvent } from 'react';
+import { styled } from '@mui/material/styles';
+import { teal } from '@mui/material/colors';
+import { CircularProgress } from '@mui/material';
 
-interface IConfirmButtonProps {
+interface IConfirmButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     label: string;
     isLoading: boolean;
-    onClick: (event: FormEvent) => void
+    onClick?: (event: FormEvent) => void
 }
 
-export const ConfirmButton = ({ label, isLoading, onClick }: IConfirmButtonProps) => {
+const ColorLoadingButton = styled(LoadingButton)<LoadingButtonProps>(({ theme }) => ({
+    color: theme.palette.getContrastText(teal[200]),
+    backgroundColor: teal['A400'],
+    '&:hover': {
+        backgroundColor: teal['A200'],
+    },
+}));
+
+export const ConfirmButton = ({ label, isLoading, type, onClick }: IConfirmButtonProps) => {
+
+    if (isLoading) {
+        return (
+            <ColorLoadingButton
+                type={type}
+                onClick={onClick}
+                variant="contained"
+                className='p-2'
+            >
+                <CircularProgress size={25} color='inherit' />
+            </ColorLoadingButton>
+        )
+    }
+
     return (
-        <LoadingButton
+        <ColorLoadingButton
+            type={type}
             onClick={onClick}
-            loading={isLoading}
             variant="contained"
-            className='bg-button hover:bg-buttonHover'
+            className='p-2'
         >
-            <p className='text-background font-open font-extrabold py-1'>{label}</p>
-        </LoadingButton>
+            {label}
+        </ColorLoadingButton>
     )
 }

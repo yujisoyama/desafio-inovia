@@ -1,14 +1,16 @@
-import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { styled } from '@mui/material/styles';
-import { ChangeEvent, InputHTMLAttributes, useState } from 'react';
+import { InputHTMLAttributes } from 'react';
 
-interface ITextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
+interface ITextInputProps extends InputHTMLAttributes<HTMLInputElement> {
     label: string;
+    error?: boolean;
+    helperText?: string;
 }
 
 
-export const TextInput = ({ id, name, placeholder, type, label }: ITextFieldProps) => {
+export const TextInput = ({ id, name, placeholder, type, label, error, helperText }: ITextInputProps) => {
+
     const CssTextField = styled(TextField)({
         '& label.MuiInputLabel-root': {
             color: '#90b4ce',
@@ -33,24 +35,21 @@ export const TextInput = ({ id, name, placeholder, type, label }: ITextFieldProp
     });
 
     return (
-        <Box
+
+        <CssTextField
+            fullWidth
+            id={id}
+            name={name}
+            placeholder={placeholder}
+            type={type}
+            label={label}
             sx={{
-                width: 500,
-                maxWidth: '100%',
+                input: { color: '#fffffe' }
             }}
-        >
-            <CssTextField
-                fullWidth
-                id={id}
-                name={name}
-                placeholder={placeholder}
-                type={type}
-                label={label}
-                sx={{
-                    input: { color: '#fffffe' }
-                }}
-            />
-        </Box>
+            error={error}
+            helperText={helperText}
+        />
+
     );
 }
 

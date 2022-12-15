@@ -5,7 +5,7 @@ import { teal } from '@mui/material/colors';
 
 interface ICancelButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     label: string;
-    isLoading: boolean;
+    isLoading?: boolean;
     onClick?: (event: FormEvent) => void
 }
 
@@ -21,6 +21,7 @@ const ColorLoadingButton = styled(LoadingButton)<LoadingButtonProps>(({ theme })
 export const CancelButton = ({ label, isLoading, type, onClick }: ICancelButtonProps) => {
     return (
         <ColorLoadingButton
+            fullWidth
             type={type}
             onClick={onClick}
             loading={isLoading}
@@ -28,6 +29,7 @@ export const CancelButton = ({ label, isLoading, type, onClick }: ICancelButtonP
             sx={{
                 color: '#77FFE9'
             }}
+            className='p-2'
         >
             {label}
         </ColorLoadingButton>

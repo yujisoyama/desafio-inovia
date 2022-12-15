@@ -6,15 +6,17 @@ import { CircularProgress } from '@mui/material';
 
 interface IConfirmButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     label: string;
-    isLoading: boolean;
+    isLoading?: boolean;
     onClick?: (event: FormEvent) => void
 }
 
 const ColorLoadingButton = styled(LoadingButton)<LoadingButtonProps>(({ theme }) => ({
     color: theme.palette.getContrastText(teal[200]),
     backgroundColor: teal['A400'],
+    borderColor: teal['A400'],
     '&:hover': {
         backgroundColor: teal['A200'],
+        borderColor: teal['A200'],
     },
 }));
 
@@ -23,10 +25,10 @@ export const ConfirmButton = ({ label, isLoading, type, onClick }: IConfirmButto
     if (isLoading) {
         return (
             <ColorLoadingButton
+                fullWidth
                 type={type}
                 onClick={onClick}
                 variant="contained"
-                className='p-2'
             >
                 <CircularProgress size={24} color='inherit' />
             </ColorLoadingButton>
@@ -35,6 +37,7 @@ export const ConfirmButton = ({ label, isLoading, type, onClick }: IConfirmButto
 
     return (
         <ColorLoadingButton
+            fullWidth
             type={type}
             onClick={onClick}
             variant="contained"

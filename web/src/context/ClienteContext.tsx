@@ -56,8 +56,7 @@ export const ClienteProvider = (props: any) => {
                     "Authorization": `Bearer ${token}`
                 }
             });
-            console.log(result);
-            
+            setCliente(result.data);
             setAuthenticated(true);
         } catch (error: any) {
             localStorage.setItem('inoviaToken', '');

@@ -8,9 +8,6 @@ import { Loading } from "./Loading";
 export const PrivateRoutes = () => {
     const { token, authenticated, getProfile } = useCliente();
     let timer: number;
-    console.log(token);
-    
-
     useEffect(() => {
         timer = setTimeout(() => getProfile(token), 2000);
     }, [authenticated])

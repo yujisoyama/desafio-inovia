@@ -6,7 +6,7 @@ import { SignUp } from './pages/SignUp'
 import { PrivateRoutes } from './components/PrivateRoutes'
 import { Dashboard } from './pages/Dashboard'
 import { ClienteProvider } from './context/ClienteContext'
-import { MainPage } from './pages/MainPage'
+import { ProductsPage } from './pages/ProductsPage'
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="*" element={<Navigate to="/" />} />
-          <Route path="/" element={<MainPage />} />
+          <Route path="/" element={<ProductsPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route element={<PrivateRoutes />} >

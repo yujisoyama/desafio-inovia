@@ -1,10 +1,11 @@
-import { Body, Controller, Get, HttpCode, HttpException, HttpStatus, Post, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpException, HttpStatus, Param, Post, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
 import { produtoSeed } from 'src/seeder/Produto.seed';
 import { CustomBadRequests } from 'src/utils/CustomBadRequests';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CriarProdutoDto } from './dto/criar-produto.dto';
 import { ProdutosService } from './produtos.service';
+import { ObjectID } from 'mongodb';
 
 @Controller('produtos')
 export class ProdutosController {
@@ -35,6 +36,19 @@ export class ProdutosController {
             throw new HttpException("Unexpected Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @Get('/:id')
+    @HttpCode(200)
+    async getProdutoById(@Param('id') produtoId: string) {
+        try {
+            const id = new ObjectID(produtoId);
+            return await this.produtosService.getProdutoById(id);
+        } catch (error) {
+            console.log(error);
+            throw new HttpException("Unexpected Error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
     @UseGuards(JwtAuthGuard)
     @Post('/seed')

@@ -13,10 +13,10 @@ module.exports = {
       backgroundLight: '#0B324D',
       main: '#fffffe',
       secondary: '#90b4ce',
-      highlight: '#39DCC1',
+      highlight: '#1de9b6',
       buttonText: '#052841',
-      button: '#39DCC1',
-      buttonHover: '#77FFE9',
+      button: '#1de9b6',
+      buttonHover: '#64ffda',
       alertBackground: '#eb9393',
       alert: '#EF4565'
     },

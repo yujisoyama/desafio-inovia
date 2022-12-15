@@ -4,12 +4,13 @@ import { InputHTMLAttributes } from 'react';
 
 interface ITextInputProps extends InputHTMLAttributes<HTMLInputElement> {
     label: string;
+    inputSize: "small" | "medium";
     error?: boolean;
     helperText?: string;
 }
 
 
-export const TextInput = ({ id, name, placeholder, type, label, error, helperText }: ITextInputProps) => {
+export const TextInput = ({ id, name, placeholder, type, label, inputSize, error, helperText }: ITextInputProps) => {
 
     const CssTextField = styled(TextField)({
         '& label.MuiInputLabel-root': {
@@ -43,6 +44,7 @@ export const TextInput = ({ id, name, placeholder, type, label, error, helperTex
             placeholder={placeholder}
             type={type}
             label={label}
+            size={inputSize}
             sx={{
                 input: { color: '#fffffe' }
             }}

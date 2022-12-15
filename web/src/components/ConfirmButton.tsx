@@ -7,7 +7,8 @@ import { CircularProgress } from '@mui/material';
 interface IConfirmButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     label: string;
     isLoading?: boolean;
-    onClick?: (event: FormEvent) => void
+    icon?: any,
+    onClick?: (event: FormEvent) => void;
 }
 
 const ColorLoadingButton = styled(LoadingButton)<LoadingButtonProps>(({ theme }) => ({
@@ -20,7 +21,7 @@ const ColorLoadingButton = styled(LoadingButton)<LoadingButtonProps>(({ theme })
     },
 }));
 
-export const ConfirmButton = ({ label, isLoading, type, onClick }: IConfirmButtonProps) => {
+export const ConfirmButton = ({ label, isLoading, type, icon, onClick }: IConfirmButtonProps) => {
 
     if (isLoading) {
         return (
@@ -41,7 +42,8 @@ export const ConfirmButton = ({ label, isLoading, type, onClick }: IConfirmButto
             type={type}
             onClick={onClick}
             variant="contained"
-            className='p-2'
+            startIcon={icon}
+            className='p-2 font-bold'
         >
             {label}
         </ColorLoadingButton>

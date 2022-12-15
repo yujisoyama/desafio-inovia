@@ -87,13 +87,13 @@ export const SignUpForm = () => {
             <h1 className="text-main text-center font-extrabold text-2xl mt-3 mb-7">Cadastro</h1>
             <div>
                 <form onSubmit={handleSignUp} className="flex flex-col gap-6 relative">
-                    <TextInput id='nome' name='nome' label='Nome' type='text' placeholder='Nome Completo' error={formError.nome.error} helperText={formError.nome.message} />
-                    <TextInput id='endereco' name='endereco' label='Endereço' type='text' placeholder='Nome da Rua - Cidade' error={formError.endereco.error} helperText={formError.endereco.message} />
-                    <TextInput id='telefone' name='telefone' label='Telefone (só números)' type='text' placeholder='1198765-4321' error={formError.telefone.error} helperText={formError.telefone.message} />
-                    <TextInput id='email' name='email' label='Email' type='text' placeholder='exemplo@gmail.com' error={formError.email.error} helperText={formError.email.message} />
+                    <TextInput id='nome' name='nome' label='Nome' inputSize='medium' type='text' placeholder='Nome Completo' error={formError.nome.error} helperText={formError.nome.message} />
+                    <TextInput id='endereco' name='endereco' label='Endereço' inputSize='medium' type='text' placeholder='Nome da Rua - Cidade' error={formError.endereco.error} helperText={formError.endereco.message} />
+                    <TextInput id='telefone' name='telefone' label='Telefone (só números)' inputSize='medium' type='text' placeholder='1198765-4321' error={formError.telefone.error} helperText={formError.telefone.message} />
+                    <TextInput id='email' name='email' label='Email' inputSize='medium' type='text' placeholder='exemplo@gmail.com' error={formError.email.error} helperText={formError.email.message} />
                     <DateInput id='data_nascimento' name='data_nascimento' label='Data de Nascimento' />
-                    <TextInput id='login' name='login' label='Login' type='text' placeholder='login' error={formError.login.error} helperText={formError.login.message} />
-                    <TextInput id='senha' name='senha' label='Senha' type='password' placeholder='senha' error={formError.senha.error} helperText={formError.senha.message} />
+                    <TextInput id='login' name='login' label='Login' inputSize='medium' type='text' placeholder='login' error={formError.login.error} helperText={formError.login.message} />
+                    <TextInput id='senha' name='senha' label='Senha' inputSize='medium' type='password' placeholder='senha' error={formError.senha.error} helperText={formError.senha.message} />
                     <ConfirmButton label='Cadastrar' isLoading={false} type='submit' />
                     <div className="text-sm text-secondary font-semibold w-full text-center flex justify-center gap-3 mobile:gap-2">
                         <p className="inline">Já tem uma conta?</p>

@@ -42,8 +42,8 @@ export const LoginForm = () => {
             <h1 className="text-main text-center font-extrabold text-2xl mt-3 mb-7">Faça o login na sua conta</h1>
             <div>
                 <form onSubmit={handleLogin} className="flex flex-col gap-6 relative">
-                    <TextInput id='login' name='login' label='login' type='text' placeholder='' />
-                    <TextInput id='senha' name='senha' label='senha' type='password' placeholder='' />
+                    <TextInput id='login' name='login' label='login' inputSize='medium' type='text' placeholder='' />
+                    <TextInput id='senha' name='senha' label='senha' inputSize='medium' type='password' placeholder='' />
                     {loginError &&
                         <div className="w-full mx-auto border-2 border-alert rounded-md text-center text-sm text-alert p-2">
                             {loginError}

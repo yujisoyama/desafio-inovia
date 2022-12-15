@@ -1,40 +1,39 @@
 import { SignIn } from "phosphor-react"
 import { FormEvent, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { api } from "../Api"
+import { useCliente } from "../context/ClienteContext"
 import { ConfirmButton } from "./ConfirmButton"
 import { TextInput } from "./TextInput"
 
-interface ISignUpForm {
-    nome: string;
-    endereco: string;
-    telefone: string;
-    email: string;
-    data_nascimento: string;
-    login: string;
-    senha: string;
-}
-
-const useForm = () => {
-    const [values, setValues] = useState<ISignUpForm>({
-        nome: '',
-        endereco: '',
-        telefone: '',
-        email: '',
-        data_nascimento: '',
-        login: '',
-        senha: '',
-    })
-
-    return {
-        values,
-    }
-}
-
 
 export const LoginForm = () => {
+    const { authErrorMessage, setAuthErrorMessage, setToken, setAuthenticated } = useCliente();
+    const [isLoading, setIsLoading] = useState(false);
+    const [loginError, setLoginError] = useState('');
+    const navigate = useNavigate();
 
-    const handleLogin = (event: FormEvent) => {
-        console.log('click');
+    const handleLogin = async (event: FormEvent) => {
+        event.preventDefault();
+        setAuthenticated(undefined);
+        setIsLoading(true);
+        setLoginError('');
+        setAuthErrorMessage('');
+        const formData = new FormData(event.target as HTMLFormElement);
+        const form = Object.fromEntries(formData);
+        try {
+            const tokenResponse = await api.post('/auth', {
+                login: form.login,
+                senha: form.senha
+            });
+            localStorage.setItem("inoviaToken", tokenResponse.data.access_token);
+            setToken(tokenResponse.data.access_token);
+            navigate('/dashboard');
+        } catch (error: any) {
+            setLoginError(error.response.data.message);
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     return (
@@ -42,10 +41,20 @@ export const LoginForm = () => {
             <SignIn className="mx-auto" size={40} color="#fffffe" weight="bold" />
             <h1 className="text-main text-center font-extrabold text-2xl mt-3 mb-7">Faça o login na sua conta</h1>
             <div>
-                <form className="flex flex-col gap-6 relative">
-                    <TextInput label='login' type='text' placeholder='' value='' />
-                    <TextInput label='senha' type='password' placeholder='' value='' />
-                    <ConfirmButton label='login' isLoading={false} onClick={handleLogin} />
+                <form onSubmit={handleLogin} className="flex flex-col gap-6 relative">
+                    <TextInput id='login' name='login' label='login' type='text' placeholder='' />
+                    <TextInput id='senha' name='senha' label='senha' type='password' placeholder='' />
+                    {loginError &&
+                        <div className="w-full mx-auto border-2 border-alert rounded-md text-center text-sm text-alert p-2">
+                            {loginError}
+                        </div>
+                    }
+                    {authErrorMessage &&
+                        <div className="w-full mx-auto border-2 border-alert rounded-md text-center text-sm text-alert p-2">
+                            Sessão expirada, faça o login novamnte
+                        </div>
+                    }
+                    <ConfirmButton label='login' isLoading={isLoading} type='submit' />
                     <div className="text-sm text-secondary font-semibold w-full text-center flex justify-center gap-3 mobile:gap-2">
                         <p className="inline">Não tem uma conta?</p>
                         <p><Link to="/signup" className="text-main hover:underline">Cadastre-se!</Link></p>

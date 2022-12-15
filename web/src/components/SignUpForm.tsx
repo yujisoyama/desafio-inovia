@@ -94,7 +94,7 @@ export const SignUpForm = () => {
                     <DateInput id='data_nascimento' name='data_nascimento' label='Data de Nascimento' />
                     <TextInput id='login' name='login' label='Login' type='text' placeholder='login' error={formError.login.error} helperText={formError.login.message} />
                     <TextInput id='senha' name='senha' label='Senha' type='password' placeholder='senha' error={formError.senha.error} helperText={formError.senha.message} />
-                    <ConfirmButton label='Cadastrar' isLoading={isLoading} type='submit' />
+                    <ConfirmButton label='Cadastrar' isLoading={false} type='submit' />
                     <div className="text-sm text-secondary font-semibold w-full text-center flex justify-center gap-3 mobile:gap-2">
                         <p className="inline">Já tem uma conta?</p>
                         <p><Link to="/" className="text-main hover:underline">Faça o login!</Link></p>

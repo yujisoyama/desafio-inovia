@@ -28,7 +28,7 @@ export const ConfirmButton = ({ label, isLoading, type, onClick }: IConfirmButto
                 variant="contained"
                 className='p-2'
             >
-                <CircularProgress size={25} color='inherit' />
+                <CircularProgress size={24} color='inherit' />
             </ColorLoadingButton>
         )
     }

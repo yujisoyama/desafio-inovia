@@ -1,7 +1,6 @@
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { Dayjs } from 'dayjs';
 import { InputHTMLAttributes, useState } from 'react';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -34,11 +33,14 @@ const CssTextField = styled(TextField)({
 });
 
 export const DateInput = ({ id, name, label }: IDateInputProps) => {
-    const [value, setValue] = useState<Dayjs | null>(null);
+    const [value, setValue] = useState<string | null>(null);
+    const date = new Date();
+    const maxDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
+                maxDate={maxDate}
                 label={label}
                 value={value}
                 onChange={(newValue) => {

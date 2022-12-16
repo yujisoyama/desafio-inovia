@@ -76,7 +76,7 @@ export const SignUpForm = () => {
                 <p className="mb-4">Olá {clienteName}, </p>
                 <p>Sinta-se livre para utilizar a plataforma.</p>
                 <p className="mb-4">Espero que goste!</p>
-                <p className="text-right"><Link to="/" className="text-main text-sm hover:underline">Return to Log in page</Link></p>
+                <p className="text-right"><Link to="/login" className="text-main text-sm hover:underline">Return to Log in page</Link></p>
             </div>
         )
     }
@@ -97,7 +97,7 @@ export const SignUpForm = () => {
                     <ConfirmButton label='Cadastrar' isLoading={false} type='submit' />
                     <div className="text-sm text-secondary font-semibold w-full text-center flex justify-center gap-3 mobile:gap-2">
                         <p className="inline">Já tem uma conta?</p>
-                        <p><Link to="/" className="text-main hover:underline">Faça o login!</Link></p>
+                        <p><Link to="/login" className="text-main hover:underline">Faça o login!</Link></p>
                     </div>
                 </form>
             </div>

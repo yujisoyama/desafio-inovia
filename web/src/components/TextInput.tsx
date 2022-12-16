@@ -12,6 +12,7 @@ interface ITextInputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 export const TextInput = ({ id, name, placeholder, type, label, inputSize, error, helperText }: ITextInputProps) => {
 
+    
     const CssTextField = styled(TextField)({
         '& label.MuiInputLabel-root': {
             color: '#90b4ce',
@@ -36,7 +37,6 @@ export const TextInput = ({ id, name, placeholder, type, label, inputSize, error
     });
 
     return (
-
         <CssTextField
             fullWidth
             id={id}
@@ -51,7 +51,6 @@ export const TextInput = ({ id, name, placeholder, type, label, inputSize, error
             error={error}
             helperText={helperText}
         />
-
     );
 }
 

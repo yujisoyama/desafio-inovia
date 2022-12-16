@@ -11,7 +11,7 @@ import { Avatar } from './Avatar';
 import { ShoppingCart } from './ShoppingCart';
 
 export const MainHeader = () => {
-    const { authenticated, token, setAuthenticated,getProfile } = useCliente();
+    const { authenticated, token, setAuthenticated, getProfile } = useCliente();
     const navigate = useNavigate();
 
     const goToLogin = () => navigate('/login');

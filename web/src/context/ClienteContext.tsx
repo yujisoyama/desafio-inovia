@@ -14,11 +14,9 @@ interface IClienteContext {
     cliente: ICliente,
     token: string,
     authenticated: boolean | undefined,
-    authErrorMessage: string,
     setCliente: React.Dispatch<React.SetStateAction<ICliente>>;
     setToken: React.Dispatch<React.SetStateAction<string>>;
     setAuthenticated: React.Dispatch<React.SetStateAction<boolean | undefined>>;
-    setAuthErrorMessage: React.Dispatch<React.SetStateAction<string>>;
     getProfile(token: string): any;
 }
 
@@ -47,7 +45,6 @@ export const ClienteProvider = (props: any) => {
     const [cliente, setCliente] = useState<ICliente>(CLIENTE_CONTEXT_DEFAULT.cliente);
     const [token, setToken] = useState<string>(localStorage.getItem('inoviaToken') || '');
     const [authenticated, setAuthenticated] = useState<boolean | undefined>(undefined);
-    const [authErrorMessage, setAuthErrorMessage] = useState('');
 
     const getProfile = async (token: string) => {
         try {
@@ -60,13 +57,12 @@ export const ClienteProvider = (props: any) => {
             setAuthenticated(true);
         } catch (error: any) {
             localStorage.setItem('inoviaToken', '');
-            setAuthErrorMessage(error.response.data.message);
             setAuthenticated(false);
         }
     }
 
     return (
-        <ClienteContext.Provider value={{ cliente, token, authenticated, authErrorMessage, setCliente, setToken, setAuthenticated, setAuthErrorMessage, getProfile }} >
+        <ClienteContext.Provider value={{ cliente, token, authenticated, setCliente, setToken, setAuthenticated, getProfile }} >
             {props.children}
         </ClienteContext.Provider>
     )

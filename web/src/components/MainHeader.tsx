@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { CancelButton } from './CancelButton'
-import { ConfirmButton } from './ConfirmButton'
+import { SecondaryButton } from './SecondaryButton'
+import { PrimaryButton } from './PrimaryButton'
 import { ConfirmIconButton } from './ConfirmIconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import { TextInput } from "./TextInput"
@@ -10,8 +10,8 @@ import { Logo } from './Logo';
 import { Avatar } from './Avatar';
 import { ShoppingCart } from './ShoppingCart';
 
-export const ProductsHeader = () => {
-    const { authenticated, token, getProfile } = useCliente();
+export const MainHeader = () => {
+    const { authenticated, token, setAuthenticated,getProfile } = useCliente();
     const navigate = useNavigate();
 
     const goToLogin = () => navigate('/login');
@@ -21,10 +21,14 @@ export const ProductsHeader = () => {
     }
 
     useEffect(() => {
-        getProfile(token);
+        if (token) {
+            getProfile(token);
+            return;
+        }
+        setAuthenticated(false);
     }, [])
 
-    const renderProductsHeaderMenu = () => {
+    const renderMainHeader = () => {
         if (authenticated === undefined) {
             return <></>
         }
@@ -33,10 +37,10 @@ export const ProductsHeader = () => {
             return (
                 <>
                     <div className='w-20'>
-                        <ConfirmButton label='Login' onClick={goToLogin} />
+                        <PrimaryButton label='Login' onClick={goToLogin} />
                     </div>
                     <div className='w-32'>
-                        <CancelButton label='Cadastre-se' onClick={goToSignUp} />
+                        <SecondaryButton label='Cadastre-se' onClick={goToSignUp} />
                     </div>
                 </>
             )
@@ -64,7 +68,7 @@ export const ProductsHeader = () => {
                 </div>
             </div>
             <div className='flex items-center gap-4'>
-                {renderProductsHeaderMenu()}
+                {renderMainHeader()}
             </div>
         </div>
     )

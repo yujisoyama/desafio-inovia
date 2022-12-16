@@ -2,8 +2,9 @@ import LoadingButton, { LoadingButtonProps } from '@mui/lab/LoadingButton';
 import { ButtonHTMLAttributes, FormEvent } from 'react';
 import { styled } from '@mui/material/styles';
 import { teal } from '@mui/material/colors';
+import { CircularProgress } from '@mui/material';
 
-interface ICancelButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface IPrimaryButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     label: string;
     isLoading?: boolean;
     icon?: any,
@@ -12,26 +13,27 @@ interface ICancelButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const ColorLoadingButton = styled(LoadingButton)<LoadingButtonProps>(({ theme }) => ({
     color: theme.palette.getContrastText(teal[200]),
-    backgroundColor: 'transparent',
+    backgroundColor: teal['A400'],
     borderColor: teal['A400'],
     '&:hover': {
+        backgroundColor: teal['A200'],
         borderColor: teal['A200'],
-    },
+    }
 }));
 
-export const CancelButton = ({ label, isLoading, type, icon, onClick }: ICancelButtonProps) => {
+export const PrimaryButton = ({ label, isLoading, type, icon, onClick }: IPrimaryButtonProps) => {
     return (
         <ColorLoadingButton
             fullWidth
             type={type}
             onClick={onClick}
-            loading={isLoading}
+            variant="contained"
             startIcon={icon}
-            variant="outlined"
-            sx={{
-                color: '#77FFE9'
-            }}
-            className='p-2 font-bold'
+            className='p-2 font-bold h-10'
+            loading={isLoading}
+            loadingIndicator={<CircularProgress size={20} sx={{
+                color: '#1de9b6'
+            }} />}
         >
             {label}
         </ColorLoadingButton>

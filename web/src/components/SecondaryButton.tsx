@@ -2,9 +2,8 @@ import LoadingButton, { LoadingButtonProps } from '@mui/lab/LoadingButton';
 import { ButtonHTMLAttributes, FormEvent } from 'react';
 import { styled } from '@mui/material/styles';
 import { teal } from '@mui/material/colors';
-import { CircularProgress } from '@mui/material';
 
-interface IConfirmButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ISecondaryButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     label: string;
     isLoading?: boolean;
     icon?: any,
@@ -13,37 +12,26 @@ interface IConfirmButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const ColorLoadingButton = styled(LoadingButton)<LoadingButtonProps>(({ theme }) => ({
     color: theme.palette.getContrastText(teal[200]),
-    backgroundColor: teal['A400'],
+    backgroundColor: 'transparent',
     borderColor: teal['A400'],
     '&:hover': {
-        backgroundColor: teal['A200'],
         borderColor: teal['A200'],
     },
 }));
 
-export const ConfirmButton = ({ label, isLoading, type, icon, onClick }: IConfirmButtonProps) => {
-
-    if (isLoading) {
-        return (
-            <ColorLoadingButton
-                fullWidth
-                type={type}
-                onClick={onClick}
-                variant="contained"
-            >
-                <CircularProgress size={24} color='inherit' />
-            </ColorLoadingButton>
-        )
-    }
-
+export const SecondaryButton = ({ label, isLoading, type, icon, onClick }: ISecondaryButtonProps) => {
     return (
         <ColorLoadingButton
             fullWidth
             type={type}
             onClick={onClick}
-            variant="contained"
+            loading={isLoading}
             startIcon={icon}
-            className='p-2 font-bold'
+            variant="outlined"
+            sx={{
+                color: '#77FFE9'
+            }}
+            className='p-2 font-bold h-10'
         >
             {label}
         </ColorLoadingButton>

@@ -3,7 +3,7 @@ import { FormEvent, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { z } from "zod"
 import { api } from "../Api"
-import { ConfirmButton } from "./ConfirmButton"
+import { PrimaryButton } from "./PrimaryButton"
 import { DateInput } from "./DateInput"
 import { TextInput } from "./TextInput"
 
@@ -93,7 +93,7 @@ export const SignUpForm = () => {
                     <DateInput id='data_nascimento' name='data_nascimento' label='Data de Nascimento' />
                     <TextInput id='login' name='login' label='Login' inputSize='medium' type='text' placeholder='login' error={formError.login.error} helperText={formError.login.message} />
                     <TextInput id='senha' name='senha' label='Senha' inputSize='medium' type='password' placeholder='senha' error={formError.senha.error} helperText={formError.senha.message} />
-                    <ConfirmButton label='Cadastrar' isLoading={false} type='submit' />
+                    <PrimaryButton label='Cadastrar' isLoading={false} type='submit' />
                     <div className="text-sm text-secondary font-semibold w-full text-center flex justify-center gap-3 mobile:gap-2">
                         <p className="inline">Já tem uma conta?</p>
                         <p><Link to="/login" className="text-main hover:underline">Faça o login!</Link></p>

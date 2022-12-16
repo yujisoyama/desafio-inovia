@@ -3,11 +3,11 @@ import { FormEvent, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { api } from "../Api"
 import { useCliente } from "../context/ClienteContext"
-import { ConfirmButton } from "./ConfirmButton"
+import { PrimaryButton } from "./PrimaryButton"
 import { TextInput } from "./TextInput"
 
 export const LoginForm = () => {
-    const { authErrorMessage, setAuthErrorMessage, setToken, setAuthenticated } = useCliente();
+    const { setToken, setAuthenticated } = useCliente();
     const [isLoading, setIsLoading] = useState(false);
     const [loginError, setLoginError] = useState('');
     const navigate = useNavigate();
@@ -17,7 +17,6 @@ export const LoginForm = () => {
         setAuthenticated(undefined);
         setIsLoading(true);
         setLoginError('');
-        setAuthErrorMessage('');
         const formData = new FormData(event.target as HTMLFormElement);
         const form = Object.fromEntries(formData);
         try {
@@ -48,12 +47,7 @@ export const LoginForm = () => {
                             {loginError}
                         </div>
                     }
-                    {authErrorMessage &&
-                        <div className="w-full mx-auto border-2 border-alert rounded-md text-center text-sm text-alert p-2">
-                            Sessão expirada, faça o login novamnte
-                        </div>
-                    }
-                    <ConfirmButton label='login' isLoading={isLoading} type='submit' />
+                    <PrimaryButton label='login' isLoading={false} type='submit' />
                     <div className="text-sm text-secondary font-semibold w-full text-center flex justify-center gap-3 mobile:gap-2">
                         <p className="inline">Não tem uma conta?</p>
                         <p><Link to="/signup" className="text-main hover:underline">Cadastre-se!</Link></p>

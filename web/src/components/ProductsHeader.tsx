@@ -3,7 +3,7 @@ import { CancelButton } from './CancelButton'
 import { ConfirmButton } from './ConfirmButton'
 import { ConfirmIconButton } from './ConfirmIconButton';
 import SearchIcon from '@mui/icons-material/Search';
-import { TextInput } from './TextInput';
+import { TextInput } from "./TextInput"
 import { useCliente } from '../context/ClienteContext';
 import { useEffect } from 'react';
 import { Logo } from './Logo';
@@ -14,7 +14,7 @@ export const ProductsHeader = () => {
     const { authenticated, token, getProfile } = useCliente();
     const navigate = useNavigate();
 
-    const goToLogin = () => navigate('/login'); 
+    const goToLogin = () => navigate('/login');
     const goToSignUp = () => navigate('/signup');
 
     const handleSearchProducts = () => {
@@ -58,7 +58,7 @@ export const ProductsHeader = () => {
                 <Logo />
                 <div className='flex items-center w-2/5 min-w-[300px]'>
                     <div className='w-full'>
-                        <TextInput label='Procurar produtos' inputSize='small' />
+                        <TextInput label='Procurar produtos' inputSize='small' id='asd' name='asd' placeholder='' type='text' />
                     </div>
                     <ConfirmIconButton onClick={handleSearchProducts} icon={<SearchIcon sx={{ color: 'black' }} className='bg-button rounded-md w-8 h-8 p-1 hover:bg-buttonHover' />} />
                 </div>

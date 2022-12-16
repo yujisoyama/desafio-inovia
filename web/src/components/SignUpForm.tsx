@@ -1,24 +1,24 @@
 import { CheckSquare, NotePencil } from "phosphor-react"
 import { FormEvent, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { z, ZodError } from "zod"
+import { z } from "zod"
 import { api } from "../Api"
 import { ConfirmButton } from "./ConfirmButton"
 import { DateInput } from "./DateInput"
 import { TextInput } from "./TextInput"
 
+const FORM_ERROR_DEFAULT = {
+    nome: { error: false, message: '' },
+    endereco: { error: false, message: '' },
+    telefone: { error: false, message: '' },
+    email: { error: false, message: '' },
+    login: { error: false, message: '' },
+    senha: { error: false, message: '' },
+}
 
 export const SignUpForm = () => {
     const [isLoading, setIsLoading] = useState(false);
-    const [formError, setFormError] = useState({
-        nome: { error: false, message: '' },
-        endereco: { error: false, message: '' },
-        telefone: { error: false, message: '' },
-        email: { error: false, message: '' },
-        data_nascimento: { error: false, message: '' },
-        login: { error: false, message: '' },
-        senha: { error: false, message: '' },
-    });
+    const [formError, setFormError] = useState(FORM_ERROR_DEFAULT);
     const [clienteName, setClienteName] = useState('');
     const [clienteCreated, setClienteCriated] = useState(false);
 
@@ -26,7 +26,7 @@ export const SignUpForm = () => {
 
     const handleSignUp = async (event: FormEvent) => {
         event.preventDefault();
-        setIsLoading(true);
+        setIsLoading(true);     
         const formData = new FormData(event.target as HTMLFormElement);
         const form = Object.fromEntries(formData);
         const createClienteSchema = z.object({
@@ -54,9 +54,8 @@ export const SignUpForm = () => {
             setClienteName(form.nome.toString());
             setClienteCriated(true);
         } catch (error) {
-            console.log(error);
             if (error instanceof z.ZodError) {
-                let formErrorAux = formError;
+                let formErrorAux = FORM_ERROR_DEFAULT;
                 error.issues.forEach(issue => {
                     const property = issue.path[0] as ObjectKey;
                     formErrorAux = { ...formErrorAux, [property]: { error: true, message: issue.message } }

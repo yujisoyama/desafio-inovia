@@ -10,31 +10,31 @@ interface IDateInputProps extends InputHTMLAttributes<HTMLInputElement> {
     label: string;
 }
 
+const CssTextField = styled(TextField)({
+    '& label.MuiInputLabel-root': {
+        color: '#90b4ce',
+    },
+    '& label.Mui-focused': {
+        color: '#39DCC1',
+    },
+    '& .MuiInput-underline:after': {
+        borderBottomColor: '#39DCC1',
+    },
+    '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+            borderColor: '#90b4ce',
+        },
+        '&:hover fieldset': {
+            borderColor: '#90b4ce',
+        },
+        '&.Mui-focused fieldset': {
+            borderColor: '#39DCC1',
+        },
+    },
+});
+
 export const DateInput = ({ id, name, label }: IDateInputProps) => {
     const [value, setValue] = useState<Dayjs | null>(null);
-
-    const CssTextField = styled(TextField)({
-        '& label.MuiInputLabel-root': {
-            color: '#90b4ce',
-        },
-        '& label.Mui-focused': {
-            color: '#39DCC1',
-        },
-        '& .MuiInput-underline:after': {
-            borderBottomColor: '#39DCC1',
-        },
-        '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-                borderColor: '#90b4ce',
-            },
-            '&:hover fieldset': {
-                borderColor: '#90b4ce',
-            },
-            '&.Mui-focused fieldset': {
-                borderColor: '#39DCC1',
-            },
-        },
-    });
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>

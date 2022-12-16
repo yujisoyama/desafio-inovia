@@ -6,7 +6,6 @@ import { useCliente } from "../context/ClienteContext"
 import { ConfirmButton } from "./ConfirmButton"
 import { TextInput } from "./TextInput"
 
-
 export const LoginForm = () => {
     const { authErrorMessage, setAuthErrorMessage, setToken, setAuthenticated } = useCliente();
     const [isLoading, setIsLoading] = useState(false);

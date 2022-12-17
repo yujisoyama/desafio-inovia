@@ -37,7 +37,7 @@ export const AllProducts = () => {
 
     return (
         <div className="m-14 flex flex-wrap justify-center gap-14">
-            {allProducts.map(product => <Product imagem={product.imagem} nome={product.nome} marca={product.marca} sobre={product.sobre} preco={product.preco} estoque={product.estoque} key={product._id} />)}
+            {allProducts.map(product => <Product imagem={product.imagem} nome={product.nome} marca={product.marca} sobre={product.sobre} preco={product.preco} estoque={product.estoque} id={product._id} key={product._id} />)}
         </div>
     )
 }

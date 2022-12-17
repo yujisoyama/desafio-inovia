@@ -31,7 +31,7 @@ export const ProductInfo = ({ productId }: IProductInfoProps) => {
     const renderDisponibility = (estoque: number) => {
         if (estoque === 0) {
             return (
-                <div className="text-alert">
+                <div className="text-alert text-center">
                     <p>Sem estoque</p>
                     <p>Produto indisponível :(</p>
                 </div>
@@ -47,7 +47,7 @@ export const ProductInfo = ({ productId }: IProductInfoProps) => {
                 <form onSubmit={handleAddToCart}>
                     <div className="flex gap-4 items-center">
                         <p>Quantidade: </p>
-                        <SelectQuantity name="quantity" quantity={100} />
+                        <SelectQuantity name="quantity" quantity={estoque} />
                     </div>
                     <div className="mt-14 mx-auto">
                         <PrimaryButton label='Adicionar ao carrinho' type='submit' />
@@ -82,7 +82,7 @@ export const ProductInfo = ({ productId }: IProductInfoProps) => {
     }
 
     return (
-        <div className="my-14 mx-4 flex flex-wrap justify-evenly gap-4 mobile:m-10 text-main">
+        <div className="my-10 mx-4 flex flex-wrap justify-evenly gap-4 mobile:m-10 text-main">
             <div className="flex flex-wrap">
                 <img className="max-h-[545px]" src={produto?.imagem} alt="produto" />
                 <div className="w-96 flex flex-col gap-5 mt-4">

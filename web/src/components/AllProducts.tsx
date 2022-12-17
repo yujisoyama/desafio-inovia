@@ -1,39 +1,29 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { api } from "../Api";
+import { getProducts, selectAllProducts } from "../store/reducers/allProductsSlice";
+import { useAppDispatch } from "../store/store";
+import { Loading } from "./Loading";
+import { PrimaryButton } from "./PrimaryButton";
 import { Product } from "./Product";
+import { SecondaryButton } from "./SecondaryButton";
 
-interface ICaracteristica {
-    nome: string;
-    descricao: string;
-    valor: string;
-}
-export interface IProduto {
-    _id: string;
-    nome: string;
-    sobre: string;
-    preco: number;
-    marca: string;
-    imposto: number;
-    estoque: number;
-    imagem: string;
-    caracteristicas: ICaracteristica[];
-}
 
 export const AllProducts = () => {
-    const [allProducts, setAllProducts] = useState<IProduto[]>([]);
+    const allProducts = useSelector(selectAllProducts);
+    const dispatch = useAppDispatch();
 
-    const fetchProducts = async () => {
-        try {
-            const result = await api.get('/produtos');
-            setAllProducts(result.data);
-        } catch (error) {
-            console.log(error);
-        }
+    const fetchProducts = () => {
+        dispatch(getProducts());
     }
 
     useEffect(() => {
         fetchProducts();
     }, [])
+
+    if (!allProducts.length) {
+        return <Loading />
+    }
 
     return (
         <div className="m-14 flex flex-wrap justify-center gap-14">

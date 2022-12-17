@@ -1,12 +1,15 @@
-import { AllProducts } from "../components/AllProducts"
+import { useParams } from "react-router-dom"
 import { Footer } from "../components/Footer"
 import { MainHeader } from "../components/MainHeader"
+import { ProductInfo } from "../components/ProductInfo"
 
-export const ProductsPage = () => {
+export const ProductPage = () => {
+    const params = useParams()
+
     return (
         <div className="bg-backgroundLight w-screen h-screen overflow-y-auto">
             <MainHeader />
-            <AllProducts />
+            <ProductInfo productId={params.productId!} />
             <div className="fixed w-full bottom-0">
                 <Footer />
             </div>

@@ -7,7 +7,7 @@ interface ICaracteristica {
     descricao: string;
     valor: string;
 }
-interface IProduto {
+export interface IProduto {
     _id: string;
     nome: string;
     sobre: string;
@@ -23,12 +23,16 @@ export const AllProducts = () => {
     const [allProducts, setAllProducts] = useState<IProduto[]>([]);
 
     const fetchProducts = async () => {
-        const result = await api.get('/produtos');
-        setAllProducts(result.data);
+        try {
+            const result = await api.get('/produtos');
+            setAllProducts(result.data);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     useEffect(() => {
-        fetchProducts(); 
+        fetchProducts();
     }, [])
 
     return (

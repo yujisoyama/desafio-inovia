@@ -39,10 +39,14 @@ export class ProdutosController {
 
     @Get('/:id')
     @HttpCode(200)
-    async getProdutoById(@Param('id') produtoId: string) {
+    async getProdutoById(@Param('id') produtoId: string, @Res() res: Response) {
         try {
             const id = new ObjectID(produtoId);
-            return await this.produtosService.getProdutoById(id);
+            const result = await this.produtosService.getProdutoById(id);
+            if (result) {
+                return res.status(200).json(result);
+            }
+            return res.status(404).json({message: 'Product not found.'})
         } catch (error) {
             console.log(error);
             throw new HttpException("Unexpected Error", HttpStatus.INTERNAL_SERVER_ERROR);

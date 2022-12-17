@@ -6,15 +6,17 @@ import { SignUp } from './pages/SignUp'
 import { PrivateRoutes } from './components/PrivateRoutes'
 import { Dashboard } from './pages/Dashboard'
 import { ClienteProvider } from './context/ClienteContext'
-import { ProductsPage } from './pages/ProductsPage'
+import { AllProductsPage } from './pages/AllProductsPage'
+import { ProductPage } from './pages/ProductPage'
 
 function App() {
   return (
     <ClienteProvider>
       <Router>
         <Routes>
-          <Route path="*" element={<Navigate to="/" />} />
-          <Route path="/" element={<ProductsPage />} />
+          <Route path="*" element={<AllProductsPage />} />
+          <Route path="/" element={<AllProductsPage />} />
+          <Route path="/produto/:productId" element={<ProductPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route element={<PrivateRoutes />} >

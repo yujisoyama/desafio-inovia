@@ -8,6 +8,7 @@ interface ITextInputProps extends InputHTMLAttributes<HTMLInputElement> {
     inputSize: "small" | "medium";
     error?: boolean;
     helperText?: string;
+    defaultValue?: string;
 }
 
 const CssTextField = styled(TextField)({
@@ -33,7 +34,7 @@ const CssTextField = styled(TextField)({
     },
 });
 
-export const TextInput = ({ id, name, placeholder, type, label, inputSize, error, helperText }: ITextInputProps) => {
+export const TextInput = ({ id, name, placeholder, type, label, inputSize, error, helperText, defaultValue }: ITextInputProps) => {
 
     return (
         <CssTextField
@@ -49,6 +50,7 @@ export const TextInput = ({ id, name, placeholder, type, label, inputSize, error
             }}
             error={error}
             helperText={helperText}
+            defaultValue={defaultValue}
         />
     );
 }

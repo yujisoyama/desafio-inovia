@@ -1,25 +1,36 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { api } from "../Api";
-import { getProducts, selectAllProducts } from "../store/reducers/allProductsSlice";
+import { getProducts, IProduto, selectAllProducts } from "../store/reducers/allProductsSlice";
+import { selectFilter } from "../store/reducers/filterSlice";
 import { useAppDispatch } from "../store/store";
 import { Loading } from "./Loading";
-import { PrimaryButton } from "./PrimaryButton";
 import { Product } from "./Product";
-import { SecondaryButton } from "./SecondaryButton";
-
 
 export const AllProducts = () => {
+    const [filteredProducts, setFilteredProducts] = useState<IProduto[]>([]);
     const allProducts = useSelector(selectAllProducts);
+    const filter = useSelector(selectFilter);
     const dispatch = useAppDispatch();
 
     const fetchProducts = () => {
         dispatch(getProducts());
     }
 
+    const filterProducts = () => {
+        setFilteredProducts(allProducts.filter((product) => {
+            return product.nome.toLowerCase().includes(filter.toLowerCase()) || product.marca.toLowerCase().includes(filter.toLowerCase());
+        }))
+    }
+
     useEffect(() => {
-        fetchProducts();
-    }, [])
+        if (!allProducts.length) {
+            fetchProducts();
+        }
+        console.log(filteredProducts);
+        
+        setFilteredProducts(allProducts);
+        filterProducts();
+    }, [filter, allProducts])
 
     if (!allProducts.length) {
         return <Loading />
@@ -27,7 +38,7 @@ export const AllProducts = () => {
 
     return (
         <div className="m-14 flex flex-wrap justify-center gap-14">
-            {allProducts.map(product => <Product imagem={product.imagem} nome={product.nome} marca={product.marca} sobre={product.sobre} preco={product.preco} estoque={product.estoque} id={product._id} key={product._id} />)}
+            {filteredProducts.map(product => <Product imagem={product.imagem} nome={product.nome} marca={product.marca} sobre={product.sobre} preco={product.preco} estoque={product.estoque} id={product._id} key={product._id} />)}
         </div>
     )
 }

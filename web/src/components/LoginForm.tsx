@@ -47,7 +47,7 @@ export const LoginForm = () => {
                             {loginError}
                         </div>
                     }
-                    <PrimaryButton label='login' isLoading={false} type='submit' />
+                    <PrimaryButton label='login' isLoading={isLoading} type='submit' />
                     <div className="text-sm text-secondary font-semibold w-full text-center flex justify-center gap-3 mobile:gap-2">
                         <p className="inline">Não tem uma conta?</p>
                         <p><Link to="/signup" className="text-main hover:underline">Cadastre-se!</Link></p>

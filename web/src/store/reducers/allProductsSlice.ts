@@ -8,7 +8,7 @@ interface ICaracteristica {
     valor: string;
 }
 
-interface IProduto {
+export interface IProduto {
     _id: string;
     nome: string;
     sobre: string;

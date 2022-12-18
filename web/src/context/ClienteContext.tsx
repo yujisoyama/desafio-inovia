@@ -20,7 +20,7 @@ interface IClienteContext {
     getProfile(token: string): any;
 }
 
-const CLIENTE_CONTEXT_DEFAULT = {
+export const CLIENTE_CONTEXT_DEFAULT = {
     cliente: {
         nome: '',
         endereco: '',

@@ -1,18 +1,19 @@
 import { FormEvent, useEffect, useState } from "react";
 import { api } from "../Api";
-import { IProduto } from "./AllProducts";
+import { IProduto } from "../store/reducers/allProductsSlice";
 import { Caracteristicas } from "./Caracteristicas";
 import { Loading } from "./Loading";
 import { PrimaryButton } from "./PrimaryButton";
 import SelectQuantity from "./SelectQuantity";
 import image404 from '../../assets/erro404.png'
-
+import { useCliente } from "../context/ClienteContext";
 
 interface IProductInfoProps {
     productId: string;
 }
 
 export const ProductInfo = ({ productId }: IProductInfoProps) => {
+    const { cliente } = useCliente();
     const [produto, setProduto] = useState<IProduto>();
     const [isLoading, setIsLoading] = useState(true);
 
@@ -44,15 +45,21 @@ export const ProductInfo = ({ productId }: IProductInfoProps) => {
                     <p>Produto disponível:</p>
                     <p className="text-secondary">Restam {estoque} unidades</p>
                 </div>
-                <form onSubmit={handleAddToCart}>
-                    <div className="flex gap-4 items-center">
-                        <p>Quantidade: </p>
-                        <SelectQuantity name="quantity" quantity={estoque} />
+                {cliente.nome ? (
+                    <form onSubmit={handleAddToCart}>
+                        <div className="flex gap-4 items-center">
+                            <p>Quantidade: </p>
+                            <SelectQuantity name="quantity" quantity={estoque} />
+                        </div>
+                        <div className="mt-14 mx-auto">
+                            <PrimaryButton label='Adicionar ao carrinho' type='submit' />
+                        </div>
+                    </form>
+                ) : (
+                    <div className="mt-10 text-highlight">
+                        <p>Faça o login para comprar os produtos!</p>
                     </div>
-                    <div className="mt-14 mx-auto">
-                        <PrimaryButton label='Adicionar ao carrinho' type='submit' />
-                    </div>
-                </form>
+                )}
             </>
         )
     }

@@ -1,8 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useSelector } from "react-redux";
 import { RootState } from "../store";
-import { selectAllProducts } from "./allProductsSlice";
-
 
 export const filterSlice = createSlice({
     name: 'filter',

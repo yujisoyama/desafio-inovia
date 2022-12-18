@@ -1,26 +1,22 @@
 import { useNavigate } from 'react-router-dom';
-import { SecondaryButton } from './SecondaryButton'
 import { PrimaryButton } from './PrimaryButton'
 import { TextInput } from "./TextInput"
 import { useCliente } from '../context/ClienteContext';
 import { FormEvent, useEffect } from 'react';
 import { Logo } from './Logo';
-import { Avatar } from './Avatar';
-import { ShoppingCart } from './ShoppingCart';
 import { MagnifyingGlass } from 'phosphor-react';
 import { setFilter, selectFilter } from '../store/reducers/filterSlice';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../store/store';
-import { selectAllProducts } from '../store/reducers/allProductsSlice';
+import { NotLoggedHeader } from './NotLoggedHeader';
+import { LoggedHeader } from './LoggedHeader';
+
 
 export const MainHeader = () => {
     const { authenticated, token, setAuthenticated, getProfile } = useCliente();
     const navigate = useNavigate();
     const filter = useSelector(selectFilter);
     const dispatch = useAppDispatch();
-
-    const goToLogin = () => navigate('/login');
-    const goToSignUp = () => navigate('/signup');
 
     const handleSearchProducts = (event: FormEvent) => {
         event.preventDefault();
@@ -45,23 +41,13 @@ export const MainHeader = () => {
 
         if (authenticated === false) {
             return (
-                <>
-                    <div className='w-20'>
-                        <PrimaryButton label='Login' onClick={goToLogin} />
-                    </div>
-                    <div className='w-32'>
-                        <SecondaryButton label='Cadastre-se' onClick={goToSignUp} />
-                    </div>
-                </>
+                <NotLoggedHeader />
             )
         }
 
         if (authenticated === true) {
             return (
-                <div className='flex gap-4 items-center'>
-                    <ShoppingCart />
-                    <Avatar />
-                </div>
+                <LoggedHeader />
             )
         }
     }

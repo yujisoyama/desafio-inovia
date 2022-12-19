@@ -22,7 +22,7 @@ interface IShoppingCart {
 }
 
 
-const initialState: IShoppingCart = {
+export const initialState: IShoppingCart = {
     produtos: [],
     quantidades: [],
     total_produtos: 0,
@@ -86,10 +86,14 @@ export const shoppingCartSlice = createSlice({
 
             state.total_produtos -= removeQuantity;
             state.total_pedido -= removePrice;
+        },
+
+        clearShoppingCart() {
+            return initialState;
         }
     }
 })
 
-export const { addCartProduct, removeCartProduct } = shoppingCartSlice.actions;
+export const { addCartProduct, removeCartProduct, clearShoppingCart } = shoppingCartSlice.actions;
 export default shoppingCartSlice.reducer;
 export const selectShoppingCart = (state: RootState) => state.shoppingCart;

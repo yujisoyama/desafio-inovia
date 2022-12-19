@@ -13,6 +13,7 @@ export const ProfileInfo = () => {
     const { cliente, token } = useCliente();
     const [isLoading, setIsLoading] = useState(false);
     const [formError, setFormError] = useState(FORM_ERROR_DEFAULT);
+    const [avatar, setAvatar] = useState(null);
     const [updatedMessage, setUpdatedMessage] = useState('');
 
     type ObjectKey = keyof typeof formError;
@@ -64,10 +65,13 @@ export const ProfileInfo = () => {
     return (
         <div className=" bg-background p-8 w-3/5 mx-auto mt-10 mb-16 rounded-xl border border-highlight">
             <p className="text-main text-2xl font-bold mb-8">Editar Perfil</p>
-            <div className="flex flex-wrap justify-evenly gap-4">
+            <div className="flex flex-wrap justify-evenly gap-10">
                 <div className="flex flex-col gap-6">
-                    <img className="w-72 h-72 rounded-full" src={cliente.foto_perfil ? cliente.foto_perfil : defaultAvatar} alt="avatar" />
-                    <SecondaryButton label='Editar avatar' />
+                    <img className="mx-auto w-72 h-72 rounded-full" src={cliente.foto_perfil ? cliente.foto_perfil : defaultAvatar} alt="avatar" />
+                    <label htmlFor="avatar" className="mx-auto w-40 h-10 border border-highlight text-highlight bg-background rounded-md pt-[5.5px] pl-[17px] font-semibold hover:cursor-pointer hover:bg-[#092336] duration-300">
+                        MUDAR AVATAR
+                    </label>
+                    <input type="file" id="avatar" className="opacity-0 absolute" />
                 </div>
                 <form onSubmit={handleUpdateCliente} className="w-80 flex flex-col gap-6">
                     <TextInput id='nome' name='nome' label='Nome' inputSize='medium' type='text' placeholder='Nome Completo' defaultValue={cliente.nome} error={formError.nome.error} helperText={formError.nome.message} />

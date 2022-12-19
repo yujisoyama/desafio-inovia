@@ -7,7 +7,7 @@ import { PrimaryButton } from "./PrimaryButton"
 import { DateInput } from "./DateInput"
 import { TextInput } from "./TextInput"
 
-const FORM_ERROR_DEFAULT = {
+export const FORM_ERROR_DEFAULT = {
     nome: { error: false, message: '' },
     endereco: { error: false, message: '' },
     telefone: { error: false, message: '' },

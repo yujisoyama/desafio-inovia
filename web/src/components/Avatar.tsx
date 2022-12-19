@@ -1,16 +1,3 @@
-// import { useCliente } from '../context/ClienteContext';
-// import defaultAvatar from '../../assets/defaultAvatar.png'
-
-// export const Avatar = () => {
-//     const { cliente } = useCliente();
-
-//     return (
-//         <div className='p-2 rounded-lg border border-background hover:cursor-pointer hover:border-highlight duration-100'>
-//             <img className='rounded-full w-10 h-10 hover:cursor-pointer border-2 border-highlight' src={cliente.foto_perfil ? cliente.foto_perfil : defaultAvatar} alt="avatar" />
-//         </div>
-//     )
-// }
-
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
@@ -34,6 +21,10 @@ export const Avatar = () => {
         setAnchorEl(null);
     }
 
+    const handleProfile = () => {
+        navigate('/profile');
+    }
+
     const handleLogOut = () => {
         setCliente(CLIENTE_CONTEXT_DEFAULT.cliente);
         setToken('');
@@ -52,7 +43,7 @@ export const Avatar = () => {
                 onClick={handleClick}
             >
                 <div className='p-2 rounded-lg border border-background hover:cursor-pointer hover:border-highlight duration-100'>
-                    <img className='rounded-full w-10 h-10 hover:cursor-pointer border-2 border-highlight' src={cliente.foto_perfil ? cliente.foto_perfil : defaultAvatar} alt="avatar" />
+                    <img className='rounded-full w-10 h-10 hover:cursor-pointer ' src={cliente.foto_perfil ? cliente.foto_perfil : defaultAvatar} alt="avatar" />
                 </div>
             </Button>
             <Menu
@@ -69,7 +60,7 @@ export const Avatar = () => {
                 }}
             >
                 <MenuItem onClick={handleClose}>Dashboard</MenuItem>
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleProfile}>Profile</MenuItem>
                 <MenuItem onClick={handleLogOut}>Logout</MenuItem>
             </Menu>
         </div>

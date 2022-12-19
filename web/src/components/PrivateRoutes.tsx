@@ -9,7 +9,7 @@ export const PrivateRoutes = () => {
     const { token, authenticated, getProfile } = useCliente();
     let timer: number;
     useEffect(() => {
-        timer = setTimeout(() => getProfile(token), 2000);
+        timer = setTimeout(() => getProfile(token), 1000);
     }, [authenticated])
 
     if (authenticated === undefined) {

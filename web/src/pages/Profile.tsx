@@ -1,13 +1,12 @@
-import { AllProducts } from "../components/AllProducts"
 import { Footer } from "../components/Footer"
 import { MainHeader } from "../components/MainHeader"
+import { ProfileInfo } from "../components/ProfileInfo"
 
-export const AllProductsPage = () => {
-
+export const Profile = () => {
     return (
         <div className="bg-backgroundLight w-screen h-screen overflow-y-auto">
             <MainHeader />
-            <AllProducts />
+            <ProfileInfo />
             <div className="fixed w-full bottom-0">
                 <Footer />
             </div>

@@ -10,6 +10,7 @@ import { AllProductsPage } from './pages/AllProductsPage'
 import { ProductPage } from './pages/ProductPage'
 import { Provider } from 'react-redux'
 import store from './store/store';
+import { Profile } from './pages/Profile'
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route element={<PrivateRoutes />} >
               <Route path="/dashboard" element={<Dashboard />} />
+            </Route>
+            <Route element={<PrivateRoutes />} >
+              <Route path="/profile" element={<Profile />} />
             </Route>
           </Routes>
         </Router>

@@ -14,7 +14,4 @@ export interface IAtualizarCliente {
     telefone: string;
     email: string;
     data_nascimento: string;
-    login: string;
-    senha: string;
-    foto_perfil: string;
 }

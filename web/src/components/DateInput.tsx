@@ -1,12 +1,13 @@
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { InputHTMLAttributes, useState } from 'react';
+import { InputHTMLAttributes, useEffect, useState } from 'react';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 interface IDateInputProps extends InputHTMLAttributes<HTMLInputElement> {
     label: string;
+    defaultValue?: string;
 }
 
 const CssTextField = styled(TextField)({
@@ -32,10 +33,16 @@ const CssTextField = styled(TextField)({
     },
 });
 
-export const DateInput = ({ id, name, label }: IDateInputProps) => {
+export const DateInput = ({ id, name, label, defaultValue }: IDateInputProps) => {
     const [value, setValue] = useState<string | null>(null);
     const date = new Date();
     const maxDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+
+    useEffect(() => {
+        if (defaultValue) {
+            setValue(defaultValue);
+        }
+    }, [])
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>

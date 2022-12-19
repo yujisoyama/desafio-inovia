@@ -89,7 +89,7 @@ export const ProductInfo = ({ productId }: IProductInfoProps) => {
     }
 
     return (
-        <div className="my-10 mx-4 flex flex-wrap justify-evenly gap-4 mobile:m-10 text-main">
+        <div className="mt-10 mb-16 mx-4 flex flex-wrap justify-evenly gap-4 mobile:m-10 text-main">
             <div className="flex flex-wrap">
                 <img className="max-h-[545px]" src={produto?.imagem} alt="produto" />
                 <div className="w-96 flex flex-col gap-5 mt-4">

@@ -60,15 +60,7 @@ export class ClientesService {
             return new CustomBadRequests('Telefone já está sendo usado', 'telefone');
         }
 
-        const loginAlreadyUsing = await this.clienteRepository.createQueryBuilder("cliente")
-            .where("LOWER(cliente.login) = LOWER(:login)", { login: atualizarCliente.login })
-            .getOne();
-        if (loginAlreadyUsing && loginAlreadyUsing.id !== clienteId) {
-            return new CustomBadRequests('Login já está sendo usado', 'login');
-        }
-
-        const hashedPassword = await bcrypt.hash(atualizarCliente.senha, 10);
-        await this.clienteRepository.update({ id: clienteId }, { ...atualizarCliente, senha: hashedPassword });
+        await this.clienteRepository.update({ id: clienteId }, { ...atualizarCliente});
         const { senha: _, ...cliente } = await this.clienteRepository.findOneBy({ id: clienteId });
         return cliente;
     }

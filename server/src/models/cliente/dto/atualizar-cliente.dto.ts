@@ -26,17 +26,4 @@ export class AtualizarClienteDto {
     @IsString()
     @IsNotEmpty()
     data_nascimento: string;
-
-    // @IsOptional()
-    @IsString()
-    @MinLength(5)
-    login: string;
-
-    // @IsOptional()
-    @IsString()
-    @MinLength(5)
-    senha: string;
-
-    // @IsOptional()
-    foto_perfil: string;
 }

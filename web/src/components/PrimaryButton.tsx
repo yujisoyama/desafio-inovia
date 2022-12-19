@@ -29,7 +29,7 @@ export const PrimaryButton = ({ label, isLoading, type, icon, onClick }: IPrimar
             onClick={onClick}
             variant="contained"
             startIcon={icon}
-            className='p-2 font-bold h-10'
+            className='h-10'
             loading={isLoading}
             loadingIndicator={<CircularProgress size={20} sx={{
                 color: '#1de9b6'

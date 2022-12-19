@@ -6,7 +6,6 @@ module.exports = {
     './src/**/*.tsx',
     './index.html'
   ],
-  important: '#root',
   theme: {
     colors: {
       background: '#031827',

@@ -13,7 +13,7 @@ export const NotLoggedHeader = () => {
             <div className='w-20'>
                 <PrimaryButton label='Login' onClick={goToLogin} />
             </div>
-            <div className='w-32'>
+            <div className='w-36'>
                 <SecondaryButton label='Cadastre-se' onClick={goToSignUp} />
             </div>
         </>

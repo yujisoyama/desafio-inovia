@@ -30,7 +30,7 @@ export const shoppingCartSlice = createSlice({
     initialState,
     reducers: {
         addCartProduct(state, { payload }) {
-
+           
         },
 
         removeCartProduct(state, { payload }) {

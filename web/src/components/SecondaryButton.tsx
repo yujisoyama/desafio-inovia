@@ -31,7 +31,7 @@ export const SecondaryButton = ({ label, isLoading, type, icon, onClick }: ISeco
             sx={{
                 color: '#77FFE9'
             }}
-            className='p-2 font-bold h-10'
+            className='h-10'
         >
             {label}
         </ColorLoadingButton>

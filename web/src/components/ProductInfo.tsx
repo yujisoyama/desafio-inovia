@@ -28,6 +28,31 @@ export const ProductInfo = ({ productId }: IProductInfoProps) => {
         }
     }
 
+    const handleAddToCart = async (event: FormEvent) => {
+        event.preventDefault();
+        const formData = new FormData(event.target as HTMLFormElement);
+        const form = Object.fromEntries(formData);
+        console.log(form);
+    }
+
+
+
+    useEffect(() => {
+        fetchProduct(productId);
+    }, [])
+
+    if (isLoading) {
+        return <Loading />
+    }
+
+    if (!produto) {
+        return (
+            <div className="text-center text-highlight my-10 text-5xl text-open">
+                <img className="mx-auto" src={image404} alt="404" />
+                <p>Produto não encontrado</p>
+            </div>
+        )
+    }
 
     const renderDisponibility = (estoque: number) => {
         if (estoque === 0) {
@@ -49,7 +74,7 @@ export const ProductInfo = ({ productId }: IProductInfoProps) => {
                     <form onSubmit={handleAddToCart}>
                         <div className="flex gap-4 items-center">
                             <p>Quantidade: </p>
-                            <SelectQuantity name="quantity" quantity={estoque} />
+                            <SelectQuantity name="quantidade" quantity={estoque} />
                         </div>
                         <div className="mt-14 mx-auto">
                             <PrimaryButton label='Adicionar ao carrinho' type='submit' />
@@ -61,30 +86,6 @@ export const ProductInfo = ({ productId }: IProductInfoProps) => {
                     </div>
                 )}
             </>
-        )
-    }
-
-    const handleAddToCart = async (event: FormEvent) => {
-        event.preventDefault();
-        const formData = new FormData(event.target as HTMLFormElement);
-        const form = Object.fromEntries(formData);
-        console.log(form);
-    }
-
-    useEffect(() => {
-        fetchProduct(productId);
-    }, [])
-
-    if (isLoading) {
-        return <Loading />
-    }
-
-    if (!produto) {
-        return (
-            <div className="text-center text-highlight my-10 text-5xl text-open">
-                <img className="mx-auto" src={image404} alt="404" />
-                <p>Produto não encontrado</p>
-            </div>
         )
     }
 

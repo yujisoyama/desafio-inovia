@@ -7,6 +7,8 @@ import { PrimaryButton } from "./PrimaryButton";
 import SelectQuantity from "./SelectQuantity";
 import image404 from '../../assets/erro404.png'
 import { useCliente } from "../context/ClienteContext";
+import { useAppDispatch } from "../store/store";
+import { addCartProduct } from "../store/reducers/shoppingCartSlice";
 
 interface IProductInfoProps {
     productId: string;
@@ -16,6 +18,7 @@ export const ProductInfo = ({ productId }: IProductInfoProps) => {
     const { cliente } = useCliente();
     const [produto, setProduto] = useState<IProduto>();
     const [isLoading, setIsLoading] = useState(true);
+    const dispatch = useAppDispatch();
 
     const fetchProduct = async (productId: string) => {
         try {
@@ -32,10 +35,14 @@ export const ProductInfo = ({ productId }: IProductInfoProps) => {
         event.preventDefault();
         const formData = new FormData(event.target as HTMLFormElement);
         const form = Object.fromEntries(formData);
-        console.log(form);
+        dispatch(addCartProduct({
+            produtoId: produto!._id,
+            nome: produto!.nome,
+            quantidade: Number(form.quantidade),
+            preco: Number(((produto!.preco) * (1 + (produto!.imposto / 100))).toFixed(0)),
+            imagem: produto!.imagem
+        }));
     }
-
-
 
     useEffect(() => {
         fetchProduct(productId);
@@ -100,8 +107,7 @@ export const ProductInfo = ({ productId }: IProductInfoProps) => {
                     {produto?.caracteristicas.length ? (
                         <>
                             <p>Características adicionais:</p>
-                            <Caracteristicas nome="asd" descricao="asdasd" valor="gwaseg" />
-                            <Caracteristicas nome="asd" descricao="asdasd" valor="gwaseg" />
+                            {produto.caracteristicas.map(caracteristica => <Caracteristicas key={caracteristica.nome} nome={caracteristica.nome} descricao={caracteristica.descricao} valor={caracteristica.valor} />)}
                         </>
                     ) : (<></>)}
                 </div>

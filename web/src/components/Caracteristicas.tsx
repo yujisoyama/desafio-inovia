@@ -1,4 +1,3 @@
-
 interface ICaracteristicasProps {
     nome: string;
     descricao: string;

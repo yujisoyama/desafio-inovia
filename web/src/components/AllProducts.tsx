@@ -26,7 +26,6 @@ export const AllProducts = () => {
         if (!allProducts.length) {
             fetchProducts();
         }
-        console.log(filteredProducts);
         
         setFilteredProducts(allProducts);
         filterProducts();

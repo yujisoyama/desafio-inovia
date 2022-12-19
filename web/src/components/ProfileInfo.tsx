@@ -1,10 +1,9 @@
-import { FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { z } from "zod";
 import { api } from "../Api";
 import { useCliente } from "../context/ClienteContext";
 import { DateInput } from "./DateInput";
 import { PrimaryButton } from "./PrimaryButton";
-import { SecondaryButton } from "./SecondaryButton";
 import { FORM_ERROR_DEFAULT } from "./SignUpForm";
 import { TextInput } from "./TextInput";
 import defaultAvatar from '../../assets/defaultAvatar.png'
@@ -13,10 +12,21 @@ export const ProfileInfo = () => {
     const { cliente, token } = useCliente();
     const [isLoading, setIsLoading] = useState(false);
     const [formError, setFormError] = useState(FORM_ERROR_DEFAULT);
-    const [avatar, setAvatar] = useState(null);
+    const [avatar, setAvatar] = useState<File | null>(null);
     const [updatedMessage, setUpdatedMessage] = useState('');
+    const [uploadError, setUploadError] = useState(false);
 
     type ObjectKey = keyof typeof formError;
+
+    const handleUploadAvatar = (event: ChangeEvent<HTMLInputElement>) => {
+        console.log(event.target.files![0]);
+        if (event.target.files![0].type.includes('image')) {
+            setAvatar(event.target.files![0]);
+            setUploadError(false);
+            return;
+        }
+        setUploadError(true);
+    }
 
     const handleUpdateCliente = async (event: FormEvent) => {
         event.preventDefault();
@@ -31,7 +41,7 @@ export const ProfileInfo = () => {
             data_nascimento: z.string()
         });
         const data = form.data_nascimento.toString().split("/");
-
+        
         try {
             const updateClienteBody = createClienteSchema.parse({
                 nome: form.nome,
@@ -45,6 +55,18 @@ export const ProfileInfo = () => {
                     "Authorization": `Bearer ${token}`
                 }
             });
+
+            if (avatar) {
+                const avatarForm = new FormData();
+                avatarForm.append('avatar', avatar);
+                await api.post('/clientes/profile/avatar', avatarForm, {
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                        "Content-Type": "multipart/form-data"
+                    }
+                })
+            }
+
             if (result.status === 200) {
                 setUpdatedMessage('Seus dados foram atualizados!');
             }
@@ -59,8 +81,13 @@ export const ProfileInfo = () => {
             }
         } finally {
             setIsLoading(false);
+            location.reload();
         }
     }
+
+    useEffect(() => {
+
+    }, [avatar])
 
     return (
         <div className=" bg-background p-8 w-3/5 mx-auto mt-10 mb-16 rounded-xl border border-highlight">
@@ -68,10 +95,12 @@ export const ProfileInfo = () => {
             <div className="flex flex-wrap justify-evenly gap-10">
                 <div className="flex flex-col gap-6">
                     <img className="mx-auto w-72 h-72 rounded-full" src={cliente.foto_perfil ? cliente.foto_perfil : defaultAvatar} alt="avatar" />
-                    <label htmlFor="avatar" className="mx-auto w-40 h-10 border border-highlight text-highlight bg-background rounded-md pt-[5.5px] pl-[17px] font-semibold hover:cursor-pointer hover:bg-[#092336] duration-300">
+                    <label htmlFor="avatar" className="mx-auto w-40 h-10 border border-highlight text-highlight bg-background rounded-md pt-[5.5px] pl-[18px] font-semibold hover:cursor-pointer hover:bg-[#092336] duration-300">
                         MUDAR AVATAR
                     </label>
-                    <input type="file" id="avatar" className="opacity-0 absolute" />
+                    <input type="file" id="avatar" className="opacity-0 absolute" onChange={handleUploadAvatar} />
+                    {avatar && !uploadError && <p className="text-highlight text-center w-72">{avatar.name}</p>}
+                    {uploadError && <p className="text-alert text-center w-72">Este arquivo não é uma imagem.</p>}
                 </div>
                 <form onSubmit={handleUpdateCliente} className="w-80 flex flex-col gap-6">
                     <TextInput id='nome' name='nome' label='Nome' inputSize='medium' type='text' placeholder='Nome Completo' defaultValue={cliente.nome} error={formError.nome.error} helperText={formError.nome.message} />

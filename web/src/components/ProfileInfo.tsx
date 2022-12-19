@@ -8,6 +8,9 @@ import { FORM_ERROR_DEFAULT } from "./SignUpForm";
 import { TextInput } from "./TextInput";
 import defaultAvatar from '../../assets/defaultAvatar.png'
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export const ProfileInfo = () => {
     const { cliente, token } = useCliente();
     const [isLoading, setIsLoading] = useState(false);
@@ -70,7 +73,9 @@ export const ProfileInfo = () => {
             if (result.status === 200) {
                 setUpdatedMessage('Seus dados foram atualizados!');
             }
+            window.location.reload();
         } catch (error) {
+            console.log(error);
             if (error instanceof z.ZodError) {
                 let formErrorAux = FORM_ERROR_DEFAULT;
                 error.issues.forEach(issue => {
@@ -78,10 +83,20 @@ export const ProfileInfo = () => {
                     formErrorAux = { ...formErrorAux, [property]: { error: true, message: issue.message } }
                     setFormError(formErrorAux);
                 })
+                return;
             }
+            toast.error('Falha atualizar perfil, tente mais tarde :(', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
         } finally {
             setIsLoading(false);
-            location.reload();
         }
     }
 
@@ -112,6 +127,19 @@ export const ProfileInfo = () => {
                     {updatedMessage && <p className="text-highlight text-right">{updatedMessage}</p>}
                 </form>
             </div>
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                limit={1}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
         </div>
     )
 }

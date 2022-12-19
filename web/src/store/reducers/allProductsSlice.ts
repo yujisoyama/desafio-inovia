@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 import { api } from "../../Api";
 import { AppDispatch, AppThunk, RootState } from "../store";
 
@@ -36,7 +37,6 @@ export const allProductsSlice = createSlice({
     }
 })
 
-
 export function getProducts(): AppThunk {
     return async function (dispatch: AppDispatch) {
         try {
@@ -47,8 +47,16 @@ export function getProducts(): AppThunk {
             });
         } catch (error) {
             console.log(error);
-        } finally {
-
+            toast.error('Falha carregar produtos, tente mais tarde :(', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
         }
     }
 }

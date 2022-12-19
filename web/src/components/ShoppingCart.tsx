@@ -11,6 +11,9 @@ import { api } from '../Api';
 import { useCliente } from '../context/ClienteContext';
 import { useAppDispatch } from '../store/store';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export const ShoppingCart = () => {
     const { token } = useCliente();
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -48,10 +51,20 @@ export const ShoppingCart = () => {
             window.location.reload();
         } catch (error: any) {
             console.log(error);
-            if (error.response.status === 400) {
+            if (error.code === 'ERR_BAD_REQUEST') {
                 setOrderErrorMessage('Estoque indisponível para este pedido. Revise as unidades do seu pedido com as unidades disponíveis de cada produto.');
                 return;
             }
+            toast.error('Falha ao finalizar pedido, tente mais tarde :(', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
         } finally {
             setIsLoading(false);
         }
@@ -90,6 +103,19 @@ export const ShoppingCart = () => {
                     </div>
                 </div>
             </Drawer>
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                limit={1}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
         </div>
     )
 }

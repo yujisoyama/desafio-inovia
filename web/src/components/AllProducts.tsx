@@ -6,6 +6,9 @@ import { useAppDispatch } from "../store/store";
 import { Loading } from "./Loading";
 import { Product } from "./Product";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export const AllProducts = () => {
     const [filteredProducts, setFilteredProducts] = useState<IProduto[]>([]);
     const allProducts = useSelector(selectAllProducts);
@@ -26,13 +29,31 @@ export const AllProducts = () => {
         if (!allProducts.length) {
             fetchProducts();
         }
-        
+
         setFilteredProducts(allProducts);
         filterProducts();
     }, [filter, allProducts])
 
     if (!allProducts.length) {
-        return <Loading />
+        return (
+            <div className="h-full">
+                <Loading />
+                <ToastContainer
+                    position="top-right"
+                    autoClose={3000}
+                    limit={1}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="dark"
+                />
+            </div>
+        )
+
     }
 
     return (

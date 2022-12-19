@@ -7,6 +7,9 @@ import { PrimaryButton } from "./PrimaryButton"
 import { DateInput } from "./DateInput"
 import { TextInput } from "./TextInput"
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export const FORM_ERROR_DEFAULT = {
     nome: { error: false, message: '' },
     endereco: { error: false, message: '' },
@@ -26,7 +29,7 @@ export const SignUpForm = () => {
 
     const handleSignUp = async (event: FormEvent) => {
         event.preventDefault();
-        setIsLoading(true);     
+        setIsLoading(true);
         const formData = new FormData(event.target as HTMLFormElement);
         const form = Object.fromEntries(formData);
         const createClienteSchema = z.object({
@@ -61,7 +64,18 @@ export const SignUpForm = () => {
                     formErrorAux = { ...formErrorAux, [property]: { error: true, message: issue.message } }
                     setFormError(formErrorAux);
                 })
+                return;
             }
+            toast.error('Falha ao cadastrar, tente mais tarde :(', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
         } finally {
             setIsLoading(false);
         }
@@ -93,13 +107,26 @@ export const SignUpForm = () => {
                     <DateInput id='data_nascimento' name='data_nascimento' label='Data de Nascimento' />
                     <TextInput id='login' name='login' label='Login' inputSize='medium' type='text' placeholder='login' error={formError.login.error} helperText={formError.login.message} />
                     <TextInput id='senha' name='senha' label='Senha' inputSize='medium' type='password' placeholder='senha' error={formError.senha.error} helperText={formError.senha.message} />
-                    <PrimaryButton label='Cadastrar' isLoading={false} type='submit' />
+                    <PrimaryButton label='Cadastrar' isLoading={isLoading} type='submit' />
                     <div className="text-sm text-secondary font-semibold w-full text-center flex justify-center gap-3 mobile:gap-2">
                         <p className="inline">Já tem uma conta?</p>
                         <p><Link to="/login" className="text-main hover:underline">Faça o login!</Link></p>
                     </div>
                 </form>
             </div>
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                limit={1}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
         </div>
     )
 }

@@ -6,6 +6,9 @@ import { useCliente } from "../context/ClienteContext"
 import { PrimaryButton } from "./PrimaryButton"
 import { TextInput } from "./TextInput"
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export const LoginForm = () => {
     const { setToken, setAuthenticated } = useCliente();
     const [isLoading, setIsLoading] = useState(false);
@@ -28,7 +31,20 @@ export const LoginForm = () => {
             setToken(tokenResponse.data.access_token);
             navigate('/dashboard');
         } catch (error: any) {
-            setLoginError(error.response.data.message);
+            if (error.code === 'ERR_BAD_REQUEST') {
+                setLoginError(error.response.data.message);
+                return;
+            }
+            toast.error('Falha ao logar, tente mais tarde :(', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
         } finally {
             setIsLoading(false);
         }
@@ -54,6 +70,19 @@ export const LoginForm = () => {
                     </div>
                 </form>
             </div>
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                limit={1}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
         </div>
     )
 }

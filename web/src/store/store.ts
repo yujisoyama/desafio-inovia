@@ -2,11 +2,13 @@ import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import allProductsReducer from './reducers/allProductsSlice'
 import filterReducer from './reducers/filterSlice'
+import shoppingCartReducer from './reducers/shoppingCartSlice'
 
 const store = configureStore({
     reducer: {
         allProducts: allProductsReducer,
         filter: filterReducer,
+        shoppingCart: shoppingCartReducer
     }
 });
 

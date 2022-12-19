@@ -35,7 +35,6 @@ const CssTextField = styled(TextField)({
 });
 
 export const TextInput = ({ id, name, placeholder, type, label, inputSize, error, helperText, defaultValue }: ITextInputProps) => {
-
     return (
         <CssTextField
             fullWidth

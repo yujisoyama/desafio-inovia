@@ -54,5 +54,5 @@ export function getProducts(): AppThunk {
 }
 
 export const { addProduct, clearProducts } = allProductsSlice.actions;
-export const selectAllProducts = (state: RootState) => state.allProducts;
 export default allProductsSlice.reducer;
+export const selectAllProducts = (state: RootState) => state.allProducts;

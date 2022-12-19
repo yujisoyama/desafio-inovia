@@ -16,12 +16,12 @@ export const ShoppingCart = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const shoppingCart = useSelector(selectShoppingCart);
     const [isLoading, setIsLoading] = useState(false);
-    const [orderMessage, setOrderMessage] = useState('');
+    const [orderErrorMessage, setOrderErrorMessage] = useState('');
     const dispatch = useAppDispatch();
 
     const toggleDrawer = (isDrawerOpen: boolean) => (event: any) => {
         setIsDrawerOpen(isDrawerOpen);
-        setOrderMessage('');
+        setOrderErrorMessage('');
     };
 
     const finishOrder = async () => {
@@ -46,8 +46,12 @@ export const ShoppingCart = () => {
             }
             dispatch(clearShoppingCart());
             window.location.reload();
-        } catch (error) {
+        } catch (error: any) {
             console.log(error);
+            if (error.response.status === 400) {
+                setOrderErrorMessage('Estoque indisponível para este pedido. Revise as unidades do seu pedido com as unidades disponíveis de cada produto.');
+                return;
+            }
         } finally {
             setIsLoading(false);
         }
@@ -55,7 +59,7 @@ export const ShoppingCart = () => {
 
     return (
         <div className='text-highlight'>
-            <Badge className='' badgeContent={shoppingCart.total_produtos} color="warning" sx={{ "& .MuiBadge-badge": { fontSize: 15, top: 13, right: 10 } }}>
+            <Badge className='' badgeContent={shoppingCart.total_produtos} max={99} color="warning" sx={{ "& .MuiBadge-badge": { fontSize: 15, top: 13, right: 10 } }}>
                 <ShoppingCartSimple className='p-2 rounded-lg border text-highlight border-background hover:cursor-pointer hover:border-highlight duration-100' size={58} color="#1de9b6" weight="bold" onClick={toggleDrawer(true)} />
             </Badge>
             <Drawer anchor='right' open={isDrawerOpen} onClose={toggleDrawer(false)} >
@@ -65,13 +69,13 @@ export const ShoppingCart = () => {
                             <div className='h-full flex flex-col justify-between'>
                                 <div className='h-4/5'>
                                     <p className='text-lg text-main font-medium'>Seu carrinho</p>
-                                    <div className='mt-4 h-[95%] overflow-y-auto'>
+                                    <div className='mt-4 h-[85%] overflow-y-auto'>
                                         {shoppingCart.produtos.map(produto => <ShoppingCartProduct imagem={produto.imagem} nome={produto.nome} preco={produto.preco} produtoId={produto.produtoId} quantidade={produto.quantidade} key={produto.produtoId} />)}
                                     </div>
                                 </div>
                                 <div className='flex flex-col'>
-                                    <p className='text-highlight text-lg font-semibold self-end mb-2'>R$ {shoppingCart.total_pedido / 100}</p>
-                                    <PrimaryButton label='finalizar pedido' onClick={finishOrder} isLoading={isLoading} />
+                                    {orderErrorMessage && <p className='mb-5 p-1 text-sm text-alert border rounded-md'>{orderErrorMessage}</p>}
+                                    <PrimaryButton label={`finalizar pedido - R$ ${shoppingCart.total_pedido / 100}`} onClick={finishOrder} isLoading={isLoading} />
                                 </div>
                             </div>
                         ) : (

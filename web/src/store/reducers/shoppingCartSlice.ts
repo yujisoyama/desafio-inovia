@@ -34,7 +34,8 @@ export const shoppingCartSlice = createSlice({
     initialState,
     reducers: {
         addCartProduct(state, { payload }) {
-            
+            let oldQuantity = 0;
+
             const productInTheCart = state.produtos.filter(produto => {
                 return produto.produtoId === payload.produtoId
             })
@@ -42,18 +43,19 @@ export const shoppingCartSlice = createSlice({
             if (productInTheCart.length) {
                 state.produtos.forEach(produto => {
                     if (produto.produtoId === payload.produtoId) {
-                        produto.quantidade += payload.quantidade
+                        oldQuantity = produto.quantidade;
+                        produto.quantidade = payload.quantidade
                     }
                 });
 
                 state.quantidades.forEach(quantidade => {
                     if (quantidade.produtoId === payload.produtoId) {
-                        quantidade.quantidade += payload.quantidade
+                        quantidade.quantidade = payload.quantidade
                     }
                 })
 
-                state.total_produtos += payload.quantidade
-                state.total_pedido += payload.preco * payload.quantidade;
+                state.total_produtos = state.total_produtos + payload.quantidade - oldQuantity;
+                state.total_pedido = state.total_pedido + payload.preco * payload.quantidade - oldQuantity * payload.preco;
                 return;
             }
 

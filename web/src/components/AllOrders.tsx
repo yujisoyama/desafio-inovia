@@ -17,10 +17,10 @@ interface ISortColumn {
 }
 
 const SORT_TABLE_DEFAULT: ISortColumn[] = [
-    { column: 0, sort: true, asc: true },
+    { column: 0, sort: false, asc: false },
     { column: 1, sort: false, asc: false },
     { column: 2, sort: false, asc: false },
-    { column: 3, sort: false, asc: false },
+    { column: 3, sort: true, asc: true },
 ]
 
 export const AllOrders = () => {
@@ -28,6 +28,7 @@ export const AllOrders = () => {
     const [orders, setOrders] = useState<IOrderRowProps[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [sortTable, setSortTable] = useState<ISortColumn[]>(SORT_TABLE_DEFAULT);
+    const [filteredOrders, setFilteredOrders] = useState<IOrderRowProps[]>([]);
 
     const fetchOrders = async () => {
         setIsLoading(true)
@@ -37,7 +38,8 @@ export const AllOrders = () => {
                     "Authorization": `Bearer ${token}`
                 }
             });
-            setOrders(result.data)
+            setOrders(result.data);
+            setFilteredOrders(result.data);
         } catch (error) {
             console.log(error);
 
@@ -47,28 +49,90 @@ export const AllOrders = () => {
     }
 
     const handleSort = (column: number) => {
+        let sortTableAux: ISortColumn[];
         if (sortTable[column].sort === true) {
-            setSortTable(sortTable.map(sortColumn =>
+            sortTableAux = sortTable.map(sortColumn =>
                 sortColumn.column === column
                     ? { ...sortColumn, asc: !sortColumn.asc }
                     : { ...sortColumn }
-            ))
-            return;
+            );
+            setSortTable(sortTableAux);
+        } else {
+            sortTableAux = sortTable.map(sortColumn =>
+                sortColumn.column === column
+                    ? { ...sortColumn, sort: true, asc: true }
+                    : { ...sortColumn, sort: false, asc: false }
+            );
+            setSortTable(sortTableAux);
         }
 
-        setSortTable(sortTable.map(sortColumn =>
-            sortColumn.column === column
-                ? { ...sortColumn, sort: true, asc: true }
-                : { ...sortColumn, sort: false, asc: false }
-        ))
-
+        switch (column) {
+            case 0:
+                if (sortTableAux[column].asc) {
+                    setOrders(filteredOrders.sort((a, b) => (a.cliente > b.cliente) ? 1 : ((b.cliente > a.cliente) ? -1 : 0)));
+                } else {
+                    setOrders(filteredOrders.sort((a, b) => (a.cliente < b.cliente) ? 1 : ((b.cliente < a.cliente) ? -1 : 0)));
+                }
+                break;
+            case 1:
+                if (sortTableAux[column].asc) {
+                    setOrders(filteredOrders.sort((a, b) => (a.total_produtos < b.total_produtos) ? 1 : ((b.total_produtos < a.total_produtos) ? -1 : 0)));
+                } else {
+                    setOrders(filteredOrders.sort((a, b) => (a.total_produtos > b.total_produtos) ? 1 : ((b.total_produtos > a.total_produtos) ? -1 : 0)));
+                }
+                break;
+            case 2:
+                if (sortTableAux[column].asc) {
+                    setOrders(filteredOrders.sort((a, b) => (a.total_pedido < b.total_pedido) ? 1 : ((b.total_pedido < a.total_pedido) ? -1 : 0)));
+                } else {
+                    setOrders(filteredOrders.sort((a, b) => (a.total_pedido > b.total_pedido) ? 1 : ((b.total_pedido > a.total_pedido) ? -1 : 0)));
+                }
+                break;
+            case 3:
+                if (sortTableAux[column].asc) {
+                    setOrders(filteredOrders.sort((a, b) => (a.data < b.data) ? 1 : ((b.data < a.data) ? -1 : 0)));
+                } else {
+                    setOrders(filteredOrders.sort((a, b) => (a.data > b.data) ? 1 : ((b.data > a.data) ? -1 : 0)));
+                }
+                break;
+        }
     }
 
     const handleFilter = (event: FormEvent) => {
         event.preventDefault();
         const formData = new FormData(event.target as HTMLFormElement);
         const form = Object.fromEntries(formData);
-        console.log(form);
+
+        if (!form.filterValue && !form.filterData) {
+            setFilteredOrders(orders);
+            return;
+        }
+
+        let filteredOrdersAux: IOrderRowProps[] = [];
+
+        const data = `${form.filterData.toString().split('/')[2]}-${form.filterData.toString().split('/')[1]}-${form.filterData.toString().split('/')[0]}`
+
+        if (form.filterOption === 'cliente') {
+            filteredOrdersAux = orders.filter((order) => { return order.cliente.toLowerCase().includes(form.filterValue.toString().toLowerCase()) })
+            setFilteredOrders(filteredOrdersAux);
+
+            if (form.filterData) {
+                filteredOrdersAux = filteredOrdersAux.filter((order) => { return order.data.includes(data) });
+                setFilteredOrders(filteredOrdersAux);
+            }
+            return;
+        }
+
+        if (form.filterOption === 'produto') {
+            filteredOrdersAux = orders.filter(order => order.produtos.some(produto => produto.nome.toLowerCase().includes(form.filterValue.toString().toLowerCase())) )
+            setFilteredOrders(filteredOrdersAux);
+
+            if (form.filterData) {
+                filteredOrdersAux = filteredOrdersAux.filter((order) => { return order.data.includes(data) });
+                setFilteredOrders(filteredOrdersAux);
+            }
+            return;
+        }
     }
 
     useEffect(() => {
@@ -87,7 +151,7 @@ export const AllOrders = () => {
         return (
             <>
                 <div className="w-full h-[75%] overflow-y-auto py-1">
-                    {orders.map(order => <OrderRow id={order.id} cliente={order.cliente} data={order.data} produtos={order.produtos} quantidades={order.quantidades} total_pedido={order.total_pedido} total_produtos={order.total_produtos} key={order.id} />)}
+                    {filteredOrders.map(order => <OrderRow id={order.id} cliente={order.cliente} data={order.data} produtos={order.produtos} quantidades={order.quantidades} total_pedido={order.total_pedido} total_produtos={order.total_produtos} key={order.id} />)}
                 </div>
             </>
         )
@@ -127,7 +191,7 @@ export const AllOrders = () => {
                     </div>
                 </form>
                 <div className="text-right">
-                    <span className="text-highlight">{orders.length}</span> pedidos realizados
+                    <span className="text-highlight">{orders.length}</span> pedidos realizados no total
                 </div>
                 <div className="w-full mt-3 border-b border-main grid grid-cols-4 text-start">
                     {renderHeader('Cliente', sortTable[0].sort, sortTable[0].asc, 0)}

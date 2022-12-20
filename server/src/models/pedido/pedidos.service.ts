@@ -47,9 +47,11 @@ export class PedidosService {
 
     async getPedidosByCliente(clienteId: number): Promise<Pedido[]> {
         return await this.pedidoRepository.createQueryBuilder('pedido')
+            .leftJoinAndSelect(Cliente, 'cliente', 'cliente.id = pedido.clienteId')
             .where('pedido.clienteId = :clienteId', { clienteId: clienteId })
+            .select(['pedido.id as id', 'cliente.nome as cliente', 'pedido.clienteId as clienteId', 'pedido.produtos as produtos', 'pedido.quantidades as quantidades', 'pedido.total_produtos as total_produtos', 'pedido.total_pedido as total_pedido', 'pedido.data as data'])
             .orderBy('pedido.data', 'DESC')
-            .getMany();
+            .execute();
     }
 
     async getAllPedidos(): Promise<Pedido[]> {

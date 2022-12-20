@@ -20,7 +20,7 @@ export const DashboardTabs = () => {
                 <Tabs.Content className='h-full' value="allOrders">
                     <AllOrders />
                 </Tabs.Content>
-                <Tabs.Content value="yourOrders">
+                <Tabs.Content className='h-full' value="yourOrders">
                     <YourOrders />
                 </Tabs.Content>
             </Tabs.Root>

@@ -23,6 +23,11 @@ const SORT_TABLE_DEFAULT: ISortColumn[] = [
     { column: 3, sort: true, asc: true },
 ]
 
+const filterOptions = [
+    { value: 'cliente', label: 'cliente' },
+    { value: 'produto', label: 'produto' }
+];
+
 export const AllOrders = () => {
     const { token } = useCliente();
     const [orders, setOrders] = useState<IOrderRowProps[]>([]);
@@ -124,7 +129,7 @@ export const AllOrders = () => {
         }
 
         if (form.filterOption === 'produto') {
-            filteredOrdersAux = orders.filter(order => order.produtos.some(produto => produto.nome.toLowerCase().includes(form.filterValue.toString().toLowerCase())) )
+            filteredOrdersAux = orders.filter(order => order.produtos.some(produto => produto.nome.toLowerCase().includes(form.filterValue.toString().toLowerCase())))
             setFilteredOrders(filteredOrdersAux);
 
             if (form.filterData) {
@@ -179,7 +184,7 @@ export const AllOrders = () => {
             <div className="p-4 h-full text-main">
                 <form onSubmit={handleFilter} className="flex gap-3 items-center">
                     <p className="font-semibold">Filtrar por:</p>
-                    <SelectFilter name="filterOption" />
+                    <SelectFilter name="filterOption" filterOptions={filterOptions} />
                     <div className="w-40">
                         <TextInput label="Filtro" inputSize="small" name="filterValue" />
                     </div>

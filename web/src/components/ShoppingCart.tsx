@@ -2,7 +2,7 @@ import { ShoppingCartSimple } from 'phosphor-react'
 import Badge from '@mui/material/Badge';
 import Drawer from '@mui/material/Drawer';
 import { useState } from 'react';
-import { clearShoppingCart, initialState, selectShoppingCart } from '../store/reducers/shoppingCartSlice';
+import { clearShoppingCart, selectShoppingCart } from '../store/reducers/shoppingCartSlice';
 import { useSelector } from 'react-redux';
 import { SecondaryButton } from './SecondaryButton';
 import { ShoppingCartProduct } from './ShoppingCartProduct';
@@ -28,7 +28,7 @@ export const ShoppingCart = () => {
     };
 
     const finishOrder = async () => {
-        const products = shoppingCart.produtos.map(({ quantidade, preco, imagem, ...rest }) => {
+        const products = shoppingCart.produtos.map(({ quantidade, imagem, ...rest }) => {
             return rest;
         })
 

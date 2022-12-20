@@ -122,7 +122,7 @@ export const ProfileInfo = () => {
                     <TextInput id='endereco' name='endereco' label='Endereço' inputSize='medium' type='text' placeholder='Nome da Rua - Cidade' defaultValue={cliente.endereco} error={formError.endereco.error} helperText={formError.endereco.message} />
                     <TextInput id='telefone' name='telefone' label='Telefone (só números)' inputSize='medium' type='text' placeholder='1198765-4321' defaultValue={cliente.telefone} error={formError.telefone.error} helperText={formError.telefone.message} />
                     <TextInput id='email' name='email' label='Email' inputSize='medium' type='text' placeholder='exemplo@gmail.com' defaultValue={cliente.email} error={formError.email.error} helperText={formError.email.message} />
-                    <DateInput id='data_nascimento' name='data_nascimento' label='Data de Nascimento' defaultValue={cliente.data_nascimento} />
+                    <DateInput id='data_nascimento' name='data_nascimento' label='Data de Nascimento' defaultValue={cliente.data_nascimento} inputSize='medium' />
                     <PrimaryButton label='salvar' isLoading={isLoading} type='submit' />
                     {updatedMessage && <p className="text-highlight text-right">{updatedMessage}</p>}
                 </form>

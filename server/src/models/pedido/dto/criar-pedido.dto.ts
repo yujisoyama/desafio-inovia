@@ -9,6 +9,10 @@ export class Produtos {
     @IsString()
     @IsNotEmpty()
     nome: string;
+
+    @IsNumber()
+    @IsNotEmpty()
+    preco: number;
 }
 
 export class Quantidades {

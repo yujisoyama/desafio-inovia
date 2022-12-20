@@ -104,7 +104,7 @@ export const SignUpForm = () => {
                     <TextInput id='endereco' name='endereco' label='Endereço' inputSize='medium' type='text' placeholder='Nome da Rua - Cidade' error={formError.endereco.error} helperText={formError.endereco.message} />
                     <TextInput id='telefone' name='telefone' label='Telefone (só números)' inputSize='medium' type='text' placeholder='1198765-4321' error={formError.telefone.error} helperText={formError.telefone.message} />
                     <TextInput id='email' name='email' label='Email' inputSize='medium' type='text' placeholder='exemplo@gmail.com' error={formError.email.error} helperText={formError.email.message} />
-                    <DateInput id='data_nascimento' name='data_nascimento' label='Data de Nascimento' />
+                    <DateInput id='data_nascimento' name='data_nascimento' label='Data de Nascimento' inputSize="medium" />
                     <TextInput id='login' name='login' label='Login' inputSize='medium' type='text' placeholder='login' error={formError.login.error} helperText={formError.login.message} />
                     <TextInput id='senha' name='senha' label='Senha' inputSize='medium' type='password' placeholder='senha' error={formError.senha.error} helperText={formError.senha.message} />
                     <PrimaryButton label='Cadastrar' isLoading={isLoading} type='submit' />

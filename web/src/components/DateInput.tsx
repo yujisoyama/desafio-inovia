@@ -8,6 +8,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 interface IDateInputProps extends InputHTMLAttributes<HTMLInputElement> {
     label: string;
     defaultValue?: string;
+    inputSize: "small" | "medium";
 }
 
 const CssTextField = styled(TextField)({
@@ -33,7 +34,7 @@ const CssTextField = styled(TextField)({
     },
 });
 
-export const DateInput = ({ id, name, label, defaultValue }: IDateInputProps) => {
+export const DateInput = ({ id, name, label, defaultValue, inputSize }: IDateInputProps) => {
     const [value, setValue] = useState<string | null>(null);
     const date = new Date();
     const maxDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
@@ -54,11 +55,13 @@ export const DateInput = ({ id, name, label, defaultValue }: IDateInputProps) =>
                     setValue(newValue);
                 }}
                 inputFormat="DD/MM/YYYY"
+                
                 renderInput={
                     (params) =>
                         <CssTextField
                             id={id}
                             name={name}
+                            size={inputSize}
                             sx={{
                                 input: { color: '#fffffe' },
                                 svg: { color: '#fffffe' }

@@ -2,27 +2,24 @@ import { InputHTMLAttributes, useState } from 'react';
 import Select from 'react-select';
 
 interface ISelectQuantityProps extends InputHTMLAttributes<HTMLInputElement> {
-    quantity: number;
 }
 
 interface GroupBase<Option> {
     value: number;
     label: string;
-  }
+}
 
-export default function SelectQuantity({ name, quantity }: ISelectQuantityProps) {
-    const [selectedOption, setSelectedOption] = useState(1);
-    const quantityOptions: (number | GroupBase<number>)[] = [];
+const options = [
+    { value: 'cliente', label: 'cliente' },
+    { value: 'produto', label: 'produto' }
+];
 
-    for (let i = 1; i <= quantity; i++) {
-        quantityOptions.push({
-            value: i,
-            label: i.toString()
-        })
-    }
-    
+
+export default function SelectFilter({ name }: ISelectQuantityProps) {
+    const [selectedOption, setSelectedOption] = useState({ value: 'cliente', label: 'cliente' });
+
     return (
-        <div className="text-background w-24">
+        <div className="text-background w-32">
             <Select
                 name={name}
                 styles={{
@@ -31,9 +28,9 @@ export default function SelectQuantity({ name, quantity }: ISelectQuantityProps)
                         boxShadow: 'none'
                     }),
                 }}
-                defaultValue={quantityOptions[0]}
+                defaultValue={selectedOption}
                 onChange={() => setSelectedOption}
-                options={quantityOptions}
+                options={options}
             />
         </div>
     );

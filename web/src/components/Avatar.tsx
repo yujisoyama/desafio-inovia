@@ -21,7 +21,11 @@ export const Avatar = () => {
         setAnchorEl(null);
     }
 
-    const handleProfile = () => {
+    const handleGoToDashboard = () => {
+        navigate('/dashboard');
+    }
+
+    const handleGoToProfile = () => {
         navigate('/profile');
     }
 
@@ -59,8 +63,8 @@ export const Avatar = () => {
                     }
                 }}
             >
-                <MenuItem onClick={handleClose}>Dashboard</MenuItem>
-                <MenuItem onClick={handleProfile}>Profile</MenuItem>
+                <MenuItem onClick={handleGoToDashboard}>Dashboard</MenuItem>
+                <MenuItem onClick={handleGoToProfile}>Profile</MenuItem>
                 <MenuItem onClick={handleLogOut}>Logout</MenuItem>
             </Menu>
         </div>

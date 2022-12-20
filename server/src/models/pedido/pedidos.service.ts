@@ -53,10 +53,9 @@ export class PedidosService {
     }
 
     async getAllPedidos(): Promise<Pedido[]> {
-        return await this.pedidoRepository.find({
-            order: {
-                data: 'DESC'
-            }
-        });
+        return await this.pedidoRepository.createQueryBuilder('pedido')
+            .leftJoinAndSelect(Cliente, 'cliente', 'cliente.id = pedido.clienteId')
+            .select(['pedido.id as id', 'cliente.nome as cliente', 'pedido.clienteId as clienteId', 'pedido.produtos as produtos', 'pedido.quantidades as quantidades', 'pedido.total_produtos as total_produtos', 'pedido.total_pedido as total_pedido', 'pedido.data as data'])
+            .execute();
     }
 }

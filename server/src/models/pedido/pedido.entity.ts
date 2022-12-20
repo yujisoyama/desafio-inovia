@@ -7,7 +7,7 @@ export class Pedido {
     @PrimaryGeneratedColumn()
     id: string;
 
-    @ManyToOne(() => Cliente, cliente => cliente.id)
+    @ManyToOne(() => Cliente, cliente => cliente.id, { eager: true })
     @JoinColumn({ name: 'clienteId' })
     clienteId: number;
 

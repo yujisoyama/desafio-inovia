@@ -37,7 +37,7 @@ export class PedidosService {
         for (let i = 0; i < criarPedido.produtos.length; i++) {
             const produtoId = new ObjectID(criarPedido.produtos[i].produtoId);
             const produto = await this.produtosService.getProdutoById(produtoId);
-            await this.produtosService.updateEstoqueProduto(produto, criarPedido.quantidades[i].quantidade);
+            await this.produtosService.updateEstoqueProdutoWhenCreatingOrder(produto, criarPedido.quantidades[i].quantidade);
         }
 
         const novoPedido = this.pedidoRepository.create({ ...criarPedido, clienteId: cliente.id });
@@ -65,7 +65,16 @@ export class PedidosService {
     }
 
     async cancelPedido(pedidoId: number): Promise<Pedido> {
+        const pedido = await this.pedidoRepository.findOneBy({ id: pedidoId });
+
+        for (let i = 0; i < pedido.quantidades.length; i++) {
+            const produtoId = new ObjectID(pedido.quantidades[i].produtoId);
+            const produto = await this.produtosService.getProdutoById(produtoId);
+            await this.produtosService.updateEstoqueProdutoWhenCancelingOrder(produto, pedido.quantidades[i].quantidade);
+        }
+
         await this.pedidoRepository.update({ id: pedidoId }, { ativo: false });
+        
         return this.pedidoRepository.createQueryBuilder('pedido')
             .where('pedido.id = :pedidoId', { pedidoId })
             .execute();

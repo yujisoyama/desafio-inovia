@@ -55,8 +55,6 @@ export class PedidosController {
     @HttpCode(200)
     async cancelPedido(@Param('pedidoId') pedidoId: number) {
         try {
-            console.log(pedidoId);
-            
             return await this.pedidosServices.cancelPedido(pedidoId);
         } catch (error) {
             console.log(error);

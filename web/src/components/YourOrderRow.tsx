@@ -6,6 +6,7 @@ import { SecondaryButton } from "./SecondaryButton";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { PrimaryButton } from "./PrimaryButton";
 
 interface IProduto {
     produtoId: string;
@@ -46,8 +47,6 @@ export const YourOrderRow = ({ id, cliente, produtos, quantidades, total_produto
     }
 
     const handleCancelOrder = async () => {
-        console.log(id);
-
         try {
             await api.post(`/pedidos/${id}`, {}, {
                 headers: {
@@ -103,8 +102,13 @@ export const YourOrderRow = ({ id, cliente, produtos, quantidades, total_produto
                     <div className="pt-2 w-full flex flex-col items-center">
                         {orderProducts.map(product => <OrderProducts nome={product.nome} preco={product.preco} quantidade={product.quantidade} produtoId={product.produtoId} key={product.produtoId} />)}
                     </div>
-                    <div className="mt-4 pb-2 w-56 self-end">
-                        <SecondaryButton label='cancelar pedido' onClick={handleCancelOrder} />
+                    <div className="mt-4 pb-2 w-[360px] self-end flex gap-4">
+                        <div className="w-[200px]">
+                            <SecondaryButton label='cancelar pedido' onClick={handleCancelOrder} />
+                        </div>
+                        <div className="w-[160px]">
+                            <PrimaryButton label='editar pedido' />
+                        </div>
                     </div>
                 </div>
             }

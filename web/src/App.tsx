@@ -11,6 +11,7 @@ import { ProductPage } from './pages/ProductPage'
 import { Provider } from 'react-redux'
 import store from './store/store';
 import { Profile } from './pages/Profile'
+import { EditOrderPage } from './pages/EditOrderPage'
 
 function App() {
   return (
@@ -28,6 +29,9 @@ function App() {
             </Route>
             <Route element={<PrivateRoutes />} >
               <Route path="/profile" element={<Profile />} />
+            </Route>
+            <Route element={<PrivateRoutes />} >
+              <Route path="/pedido/:pedidoId" element={<EditOrderPage />} />
             </Route>
           </Routes>
         </Router>

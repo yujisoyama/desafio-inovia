@@ -37,7 +37,11 @@ export class ProdutosService {
         return await this.produtoRepository.findOneBy({ _id: produtoId });
     }
 
-    async updateEstoqueProduto(produto: Produto, quantidade: number) {
+    async updateEstoqueProdutoWhenCreatingOrder(produto: Produto, quantidade: number) {
         await this.produtoRepository.update({ _id: produto._id }, { ...produto, estoque: produto.estoque - quantidade });
+    }
+
+    async updateEstoqueProdutoWhenCancelingOrder(produto: Produto, quantidade: number) {
+        await this.produtoRepository.update({ _id: produto._id }, { ...produto, estoque: produto.estoque + quantidade });
     }
 }

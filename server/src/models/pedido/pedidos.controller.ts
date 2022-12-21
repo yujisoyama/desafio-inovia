@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpException, HttpStatus, Post, Req, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpException, HttpStatus, Param, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
 import { CustomBadRequests } from 'src/utils/CustomBadRequests';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -44,6 +44,20 @@ export class PedidosController {
     async getAllPedidos() {
         try {
             return await this.pedidosServices.getAllPedidos();
+        } catch (error) {
+            console.log(error);
+            throw new HttpException("Unexpected Error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Post('/:pedidoId')
+    @HttpCode(200)
+    async cancelPedido(@Param('pedidoId') pedidoId: number) {
+        try {
+            console.log(pedidoId);
+            
+            return await this.pedidosServices.cancelPedido(pedidoId);
         } catch (error) {
             console.log(error);
             throw new HttpException("Unexpected Error", HttpStatus.INTERNAL_SERVER_ERROR);

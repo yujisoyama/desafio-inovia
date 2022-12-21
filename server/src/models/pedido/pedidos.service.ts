@@ -49,6 +49,7 @@ export class PedidosService {
         return await this.pedidoRepository.createQueryBuilder('pedido')
             .leftJoinAndSelect(Cliente, 'cliente', 'cliente.id = pedido.clienteId')
             .where('pedido.clienteId = :clienteId', { clienteId: clienteId })
+            .andWhere('pedido.ativo = true')
             .select(['pedido.id as id', 'cliente.nome as cliente', 'pedido.clienteId as clienteId', 'pedido.produtos as produtos', 'pedido.quantidades as quantidades', 'pedido.total_produtos as total_produtos', 'pedido.total_pedido as total_pedido', 'pedido.data as data'])
             .orderBy('pedido.data', 'DESC')
             .execute();
@@ -57,8 +58,16 @@ export class PedidosService {
     async getAllPedidos(): Promise<Pedido[]> {
         return await this.pedidoRepository.createQueryBuilder('pedido')
             .leftJoinAndSelect(Cliente, 'cliente', 'cliente.id = pedido.clienteId')
+            .where('pedido.ativo = true')
             .select(['pedido.id as id', 'cliente.nome as cliente', 'pedido.clienteId as clienteId', 'pedido.produtos as produtos', 'pedido.quantidades as quantidades', 'pedido.total_produtos as total_produtos', 'pedido.total_pedido as total_pedido', 'pedido.data as data'])
             .orderBy('pedido.data', 'DESC')
+            .execute();
+    }
+
+    async cancelPedido(pedidoId: number): Promise<Pedido> {
+        await this.pedidoRepository.update({ id: pedidoId }, { ativo: false });
+        return this.pedidoRepository.createQueryBuilder('pedido')
+            .where('pedido.id = :pedidoId', { pedidoId })
             .execute();
     }
 }

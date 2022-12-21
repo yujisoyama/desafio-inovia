@@ -5,7 +5,7 @@ import { Produtos, Quantidades } from "./dto/criar-pedido.dto";
 @Entity('pedidos')
 export class Pedido {
     @PrimaryGeneratedColumn()
-    id: string;
+    id: number;
 
     @ManyToOne(() => Cliente, cliente => cliente.id, { eager: true })
     @JoinColumn({ name: 'clienteId' })
@@ -25,4 +25,7 @@ export class Pedido {
 
     @CreateDateColumn()
     data: Date;
+
+    @Column({ type: 'boolean', default: true })
+    ativo: boolean;
 }

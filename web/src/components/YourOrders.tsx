@@ -1,4 +1,4 @@
-import { IOrderRowProps, OrderRow } from "./OrderRow"
+import { IOrderRowProps } from "./OrderRow"
 import '../styles/scrollbarInvisible.css'
 import SelectFilter from "./SelectFilter"
 import { TextInput } from "./TextInput"
@@ -9,6 +9,7 @@ import { api } from "../Api"
 import { useCliente } from "../context/ClienteContext"
 import { Loading } from "./Loading"
 import { ArrowDown, ArrowUp } from "phosphor-react"
+import { YourOrderRow } from "./YourOrderRow"
 
 interface ISortColumn {
   column: number;
@@ -46,7 +47,6 @@ export const YourOrders = () => {
             setFilteredOrders(result.data);
         } catch (error) {
             console.log(error);
-
         } finally {
             setIsLoading(false);
         }
@@ -155,7 +155,7 @@ export const YourOrders = () => {
         return (
             <>
                 <div className="w-full h-[75%] overflow-y-auto py-1">
-                    {filteredOrders.map(order => <OrderRow id={order.id} cliente={order.cliente} data={order.data} produtos={order.produtos} quantidades={order.quantidades} total_pedido={order.total_pedido} total_produtos={order.total_produtos} key={order.id} />)}
+                    {filteredOrders.map(order => <YourOrderRow id={order.id} cliente={order.cliente} data={order.data} produtos={order.produtos} quantidades={order.quantidades} total_pedido={order.total_pedido} total_produtos={order.total_produtos} key={order.id} />)}
                 </div>
             </>
         )

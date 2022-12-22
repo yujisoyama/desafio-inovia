@@ -91,15 +91,15 @@ export const YourOrderRow = ({ id, cliente, produtos, quantidades, total_produto
 
     return (
         <div className={`rounded-md ${isSelected ? 'border border-highlight bg-backgroundLight' : 'bg-background'}`}>
-            <div onClick={handleIsSelected} className="w-full h-16 rounded-md border-b border-backgroundLight grid grid-cols-4 text-start items-center text-sm hover: cursor-pointer hover:bg-backgroundLight duration-150">
-                <p className="pl-3">{cliente}</p>
-                <p className="pl-3">{total_produtos}</p>
-                <p className="pl-3">R$ {(total_pedido / 100).toFixed(2)}</p>
-                <p className="pl-3">{`${date.split('-')[2]}/${date.split('-')[1]}/${date.split('-')[0]}`}</p>
+            <div onClick={handleIsSelected} className="w-full h-16 rounded-md border-b border-backgroundLight grid grid-cols-4 text-start items-center text-sm hover: cursor-pointer hover:bg-backgroundLight duration-150 mobile:text-xs">
+                <p className="pl-3 mobile:pl-1">{cliente}</p>
+                <p className="pl-3 mobile:pl-1">{total_produtos}</p>
+                <p className="pl-3 mobile:pl-1">R$ {(total_pedido / 100).toFixed(2)}</p>
+                <p className="pl-3 mobile:pl-1">{`${date.split('-')[2]}/${date.split('-')[1]}/${date.split('-')[0]}`}</p>
             </div>
             {isSelected &&
                 <div className="px-6 pb-3 text-secondary flex flex-col">
-                    <div className="mx-auto w-4/5 grid grid-cols-4 text-start border-b border-secondary">
+                    <div className="mx-auto w-4/5 grid grid-cols-4 text-start border-b border-secondary mobile:text-[10px] mobile:w-full">
                         <p>Nome do Produto</p>
                         <p>Quantidade</p>
                         <p>Preço</p>
@@ -108,11 +108,11 @@ export const YourOrderRow = ({ id, cliente, produtos, quantidades, total_produto
                     <div className="pt-2 w-full flex flex-col items-center">
                         {orderProducts.map(product => <OrderProducts nome={product.nome} preco={product.preco} quantidade={product.quantidade} produtoId={product.produtoId} key={product.produtoId} />)}
                     </div>
-                    <div className="mt-4 pb-2 w-[360px] self-end flex gap-4">
-                        <div className="w-[200px]">
+                    <div className="mt-4 pb-2 w-[360px] self-end flex gap-4 mobile:flex-col mobile:items-center mobile:w-full mobile:gap-2">
+                        <div className="w-[200px] mobile:w-[180px]">
                             <SecondaryButton label='cancelar pedido' onClick={handleCancelOrder} />
                         </div>
-                        <div className="w-[160px]">
+                        <div className="w-[160px] mobile:w-[180px]">
                             <PrimaryButton label='editar pedido' onClick={handleEditOrder} />
                         </div>
                     </div>

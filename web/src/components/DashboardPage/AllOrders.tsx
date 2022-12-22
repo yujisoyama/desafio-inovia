@@ -155,7 +155,7 @@ export const AllOrders = () => {
 
         return (
             <>
-                <div className="w-full h-[75%] overflow-y-auto py-1">
+                <div className="w-full h-[75%] overflow-y-auto py-1 mobile:h-[70%]">
                     {filteredOrders.map(order => <OrderRow id={order.id} cliente={order.cliente} data={order.data} produtos={order.produtos} quantidades={order.quantidades} total_pedido={order.total_pedido} total_produtos={order.total_produtos} key={order.id} />)}
                 </div>
             </>
@@ -165,17 +165,17 @@ export const AllOrders = () => {
     const renderHeader = (columnDesc: string, isSort: boolean, isAscSort: boolean, column: number) => {
         if (isSort && isAscSort) {
             return (
-                <p onClick={() => handleSort(column)} className="pl-3 pb-1 rounded-t-lg hover:cursor-pointer hover:text-highlight hover:bg-backgroundLight duration-150">{columnDesc} <ArrowUp className="inline" size={18} color="#1de9b6" weight="bold" /> </p>
+                <p onClick={() => handleSort(column)} className="pl-3 pb-1 rounded-t-lg hover:cursor-pointer hover:text-highlight hover:bg-backgroundLight duration-150 mobile:pl-1 mobile:text-xs">{columnDesc} <ArrowUp className="inline" size={18} color="#1de9b6" weight="bold" /> </p>
             )
         }
         if (isSort && !isAscSort) {
             return (
-                <p onClick={() => handleSort(column)} className="pl-3 pb-1 rounded-t-lg hover:cursor-pointer hover:text-highlight hover:bg-backgroundLight duration-150">{columnDesc} <ArrowDown className="inline" size={18} color="#1de9b6" weight="bold" /> </p>
+                <p onClick={() => handleSort(column)} className="pl-3 pb-1 rounded-t-lg hover:cursor-pointer hover:text-highlight hover:bg-backgroundLight duration-150 mobile:pl-1 mobile:text-xs">{columnDesc} <ArrowDown className="inline" size={18} color="#1de9b6" weight="bold" /> </p>
             )
         }
 
         return (
-            <p onClick={() => handleSort(column)} className="pl-3 pb-1 rounded-t-lg hover:cursor-pointer hover:text-highlight hover:bg-backgroundLight duration-150">{columnDesc}</p>
+            <p onClick={() => handleSort(column)} className="pl-3 pb-1 rounded-t-lg hover:cursor-pointer hover:text-highlight hover:bg-backgroundLight duration-150 mobile:pl-1 mobile:text-xs">{columnDesc}</p>
         )
     }
 

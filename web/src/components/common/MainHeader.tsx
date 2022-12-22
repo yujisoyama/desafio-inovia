@@ -53,7 +53,7 @@ export const MainHeader = () => {
     }
 
     return (
-        <div className="bg-background font-open flex items-center justify-between px-5 min-h-[72px] w-full py-4 mobile:flex-row mobile:flex-wrap-reverse mobile:gap-4">
+        <div className="bg-background font-open flex items-center justify-between px-5 min-h-[72px] w-full mobile:py-4 mobile:flex-row mobile:flex-wrap-reverse mobile:gap-4">
             <div className='flex items-center gap-6 w-4/5'>
                 <Logo />
                 <form onSubmit={handleSearchProducts} className='flex items-center w-3/5 min-w-[200px] mobile:min-w-[170px]'>

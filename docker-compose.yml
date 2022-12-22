@@ -12,6 +12,8 @@ services:
       - '5430:5432'
     volumes:
       - dbpostgres:/var/lib/postgresql/data
+    networks:
+      - mongo-compose-network
 
   mongo-express:
     container_name: mongoInovia-express
@@ -42,6 +44,32 @@ services:
       - 27017:27017
     networks:
       - mongo-compose-network
+
+  node:
+      container_name: nestInovia
+      restart: always
+      build: ./server
+      ports:
+        - '3000:3000'
+      links:
+        - postgresdb
+        - mongo
+      depends_on:
+        - postgresdb
+        - mongo
+      networks:
+        - mongo-compose-network
+
+  web:
+      container_name: webInovia
+      restart: always
+      build: ./web
+      ports:
+        - '5137:5137'
+      links:
+        - node
+      depends_on:
+        - node
 
 networks:
   mongo-compose-network:

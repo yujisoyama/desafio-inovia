@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
-import { EditOrderInfo } from '../components/EditOrderInfo'
-import { Footer } from '../components/Footer'
-import { MainHeader } from '../components/MainHeader'
+import { EditOrderInfo } from '../components/EditOrderPage/EditOrderInfo'
+import { Footer } from '../components/common/Footer'
+import { MainHeader } from '../components/common/MainHeader'
 
 export const EditOrderPage = () => {
     const params = useParams()

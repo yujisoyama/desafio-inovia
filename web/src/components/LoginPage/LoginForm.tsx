@@ -1,10 +1,10 @@
 import { SignIn } from "phosphor-react"
 import { FormEvent, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { api } from "../Api"
-import { useCliente } from "../context/ClienteContext"
-import { PrimaryButton } from "./PrimaryButton"
-import { TextInput } from "./TextInput"
+import { api } from "../../Api"
+import { useCliente } from "../../context/ClienteContext"
+import { PrimaryButton } from "../common/PrimaryButton"
+import { TextInput } from "../common/TextInput"
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

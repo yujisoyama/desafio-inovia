@@ -1,11 +1,11 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
-import { api } from '../Api';
-import { useCliente } from '../context/ClienteContext';
-import { IOrderRowProps } from './YourOrderRow';
+import { api } from '../../Api';
+import { useCliente } from '../../context/ClienteContext';
+import { IOrderRowProps } from '../DashboardPage/YourOrderRow';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { TextInput } from './TextInput';
-import { PrimaryButton } from './PrimaryButton';
+import { TextInput } from '../common/TextInput';
+import { PrimaryButton } from '../common/PrimaryButton';
 import { useNavigate } from 'react-router-dom';
 
 interface IEditInfoProps {

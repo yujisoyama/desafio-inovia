@@ -1,14 +1,14 @@
 import { FormEvent, useEffect, useState } from "react";
-import { api } from "../Api";
-import { IProduto } from "../store/reducers/allProductsSlice";
+import { api } from "../../Api";
+import { IProduto } from "../../store/reducers/allProductsSlice";
 import { Caracteristicas } from "./Caracteristicas";
-import { Loading } from "./Loading";
-import { PrimaryButton } from "./PrimaryButton";
+import { Loading } from "../common/Loading";
+import { PrimaryButton } from "../common/PrimaryButton";
 import SelectQuantity from "./SelectQuantity";
-import image404 from '../../assets/erro404.png'
-import { useCliente } from "../context/ClienteContext";
-import { useAppDispatch } from "../store/store";
-import { addCartProduct } from "../store/reducers/shoppingCartSlice";
+import image404 from '../../../assets/erro404.png'
+import { useCliente } from "../../context/ClienteContext";
+import { useAppDispatch } from "../../store/store";
+import { addCartProduct } from "../../store/reducers/shoppingCartSlice";
 
 interface IProductInfoProps {
     productId: string;

@@ -1,6 +1,6 @@
-import { DashboardTabs } from '../components/DashboardTabs'
-import { Footer } from '../components/Footer'
-import { MainHeader } from '../components/MainHeader'
+import { DashboardTabs } from '../components/DashboardPage/DashboardTabs'
+import { Footer } from '../components/common/Footer'
+import { MainHeader } from '../components/common/MainHeader'
 
 export const Dashboard = () => {
     return (

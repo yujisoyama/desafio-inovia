@@ -2,14 +2,14 @@ import { ShoppingCartSimple } from 'phosphor-react'
 import Badge from '@mui/material/Badge';
 import Drawer from '@mui/material/Drawer';
 import { useState } from 'react';
-import { clearShoppingCart, selectShoppingCart } from '../store/reducers/shoppingCartSlice';
+import { clearShoppingCart, selectShoppingCart } from '../../store/reducers/shoppingCartSlice';
 import { useSelector } from 'react-redux';
-import { SecondaryButton } from './SecondaryButton';
+import { SecondaryButton } from '../common/SecondaryButton';
 import { ShoppingCartProduct } from './ShoppingCartProduct';
-import { PrimaryButton } from './PrimaryButton';
-import { api } from '../Api';
-import { useCliente } from '../context/ClienteContext';
-import { useAppDispatch } from '../store/store';
+import { PrimaryButton } from '../common/PrimaryButton';
+import { api } from '../../Api';
+import { useCliente } from '../../context/ClienteContext';
+import { useAppDispatch } from '../../store/store';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { getProducts, IProduto, selectAllProducts } from "../store/reducers/allProductsSlice";
-import { selectFilter } from "../store/reducers/filterSlice";
-import { useAppDispatch } from "../store/store";
-import { Loading } from "./Loading";
+import { getProducts, IProduto, selectAllProducts } from "../../store/reducers/allProductsSlice";
+import { selectFilter } from "../../store/reducers/filterSlice";
+import { useAppDispatch } from "../../store/store";
+import { Loading } from "../common/Loading";
 import { Product } from "./Product";
 
 import { ToastContainer } from 'react-toastify';

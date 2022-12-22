@@ -1,13 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { PrimaryButton } from './PrimaryButton'
 import { TextInput } from "./TextInput"
-import { useCliente } from '../context/ClienteContext';
+import { useCliente } from '../../context/ClienteContext';
 import { FormEvent, useEffect } from 'react';
 import { Logo } from './Logo';
 import { MagnifyingGlass } from 'phosphor-react';
-import { setFilter, selectFilter } from '../store/reducers/filterSlice';
+import { setFilter, selectFilter } from '../../store/reducers/filterSlice';
 import { useSelector } from 'react-redux';
-import { useAppDispatch } from '../store/store';
+import { useAppDispatch } from '../../store/store';
 import { NotLoggedHeader } from './NotLoggedHeader';
 import { LoggedHeader } from './LoggedHeader';
 

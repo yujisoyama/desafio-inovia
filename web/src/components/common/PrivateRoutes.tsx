@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { Footer } from "./Footer";
-import { useCliente } from "../context/ClienteContext";
+import { useCliente } from "../../context/ClienteContext";
 import { LoginHeader } from "./LoginHeader";
 import { Loading } from "./Loading";
 

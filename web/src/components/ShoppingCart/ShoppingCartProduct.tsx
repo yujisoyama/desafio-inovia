@@ -1,6 +1,6 @@
 import { Trash } from "phosphor-react";
-import { removeCartProduct } from "../store/reducers/shoppingCartSlice";
-import { useAppDispatch } from "../store/store";
+import { removeCartProduct } from "../../store/reducers/shoppingCartSlice";
+import { useAppDispatch } from "../../store/store";
 
 interface IShoppingCarProductsProps {
     produtoId: string;

@@ -1,6 +1,6 @@
-import { AllProducts } from "../components/AllProducts"
-import { Footer } from "../components/Footer"
-import { MainHeader } from "../components/MainHeader"
+import { AllProducts } from "../components/AllProductsPage/AllProducts"
+import { Footer } from "../components/common/Footer"
+import { MainHeader } from "../components/common/MainHeader"
 
 export const AllProductsPage = () => {
 

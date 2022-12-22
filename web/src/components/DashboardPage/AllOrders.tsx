@@ -1,13 +1,13 @@
 import { IOrderRowProps, OrderRow } from "./OrderRow"
-import '../styles/scrollbarInvisible.css'
-import SelectFilter from "./SelectFilter"
-import { TextInput } from "./TextInput"
-import { DateInput } from "./DateInput"
-import { PrimaryButton } from "./PrimaryButton"
+import '../../styles/scrollbarInvisible.css'
+import SelectFilter from "../common/SelectFilter"
+import { TextInput } from "../common/TextInput"
+import { DateInput } from "../common/DateInput"
+import { PrimaryButton } from "../common/PrimaryButton"
 import { FormEvent, useEffect, useState } from "react"
-import { api } from "../Api"
-import { useCliente } from "../context/ClienteContext"
-import { Loading } from "./Loading"
+import { api } from "../../Api"
+import { useCliente } from "../../context/ClienteContext"
+import { Loading } from "../common/Loading"
 import { ArrowDown, ArrowUp } from "phosphor-react"
 
 interface ISortColumn {

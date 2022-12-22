@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { api } from "../Api";
-import { useCliente } from "../context/ClienteContext";
+import { api } from "../../Api";
+import { useCliente } from "../../context/ClienteContext";
 import { OrderProducts } from "./OrderProducts";
-import { SecondaryButton } from "./SecondaryButton";
+import { SecondaryButton } from "../common/SecondaryButton";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { PrimaryButton } from "./PrimaryButton";
+import { PrimaryButton } from "../common/PrimaryButton";
 import { useNavigate } from "react-router-dom";
 
 interface IProduto {

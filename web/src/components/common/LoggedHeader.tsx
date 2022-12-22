@@ -1,5 +1,5 @@
 import { Avatar } from "./Avatar"
-import { ShoppingCart } from "./ShoppingCart"
+import { ShoppingCart } from "../ShoppingCart/ShoppingCart"
 
 
 export const LoggedHeader = () => {

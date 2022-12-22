@@ -1,12 +1,12 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { z } from "zod";
-import { api } from "../Api";
-import { useCliente } from "../context/ClienteContext";
-import { DateInput } from "./DateInput";
-import { PrimaryButton } from "./PrimaryButton";
-import { FORM_ERROR_DEFAULT } from "./SignUpForm";
-import { TextInput } from "./TextInput";
-import defaultAvatar from '../../assets/defaultAvatar.png'
+import { api } from "../../Api";
+import { useCliente } from "../../context/ClienteContext";
+import { DateInput } from "../common/DateInput";
+import { PrimaryButton } from "../common/PrimaryButton";
+import { FORM_ERROR_DEFAULT } from "../SignUpPage/SignUpForm";
+import { TextInput } from "../common/TextInput";
+import defaultAvatar from '../../../assets/defaultAvatar.png'
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

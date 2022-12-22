@@ -2,8 +2,8 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import defaultAvatar from '../../assets/defaultAvatar.png'
-import { CLIENTE_CONTEXT_DEFAULT, useCliente } from '../context/ClienteContext';
+import defaultAvatar from '../../../assets/defaultAvatar.png'
+import { CLIENTE_CONTEXT_DEFAULT, useCliente } from '../../context/ClienteContext';
 import { useNavigate } from 'react-router-dom';
 
 

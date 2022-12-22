@@ -2,10 +2,10 @@ import { CheckSquare, NotePencil } from "phosphor-react"
 import { FormEvent, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { z } from "zod"
-import { api } from "../Api"
-import { PrimaryButton } from "./PrimaryButton"
-import { DateInput } from "./DateInput"
-import { TextInput } from "./TextInput"
+import { api } from "../../Api"
+import { PrimaryButton } from "../common/PrimaryButton"
+import { DateInput } from "../common/DateInput"
+import { TextInput } from "../common/TextInput"
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

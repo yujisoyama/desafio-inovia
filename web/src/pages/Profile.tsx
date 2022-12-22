@@ -1,6 +1,6 @@
-import { Footer } from "../components/Footer"
-import { MainHeader } from "../components/MainHeader"
-import { ProfileInfo } from "../components/ProfileInfo"
+import { Footer } from "../components/common/Footer"
+import { MainHeader } from "../components/common/MainHeader"
+import { ProfileInfo } from "../components/ProfilePage/ProfileInfo"
 
 export const Profile = () => {
     return (

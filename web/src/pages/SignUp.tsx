@@ -1,6 +1,6 @@
-import { Footer } from "../components/Footer"
-import { LoginHeader } from "../components/LoginHeader"
-import { SignUpForm } from "../components/SignUpForm"
+import { Footer } from "../components/common/Footer"
+import { LoginHeader } from "../components/common/LoginHeader"
+import { SignUpForm } from "../components/SignUpPage/SignUpForm"
 
 
 export const SignUp = () => {

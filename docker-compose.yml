@@ -65,7 +65,7 @@ services:
       restart: always
       build: ./web
       ports:
-        - '5137:5137'
+        - '5138:5138'
       links:
         - node
       depends_on:

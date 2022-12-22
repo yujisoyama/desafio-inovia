@@ -12,24 +12,24 @@ import { ArrowDown, ArrowUp } from "phosphor-react"
 import { YourOrderRow } from "./YourOrderRow"
 
 interface ISortColumn {
-  column: number;
-  sort: boolean;
-  asc: boolean;
+    column: number;
+    sort: boolean;
+    asc: boolean;
 }
 
 const SORT_TABLE_DEFAULT: ISortColumn[] = [
-  { column: 0, sort: false, asc: false },
-  { column: 1, sort: false, asc: false },
-  { column: 2, sort: false, asc: false },
-  { column: 3, sort: true, asc: true },
+    { column: 0, sort: false, asc: false },
+    { column: 1, sort: false, asc: false },
+    { column: 2, sort: false, asc: false },
+    { column: 3, sort: true, asc: true },
 ]
 
 const filterOptions = [
-  { value: 'produto', label: 'produto' }
+    { value: 'produto', label: 'produto' }
 ];
 
 export const YourOrders = () => {
-  const { token } = useCliente();
+    const { token } = useCliente();
     const [orders, setOrders] = useState<IOrderRowProps[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [sortTable, setSortTable] = useState<ISortColumn[]>(SORT_TABLE_DEFAULT);
@@ -128,7 +128,7 @@ export const YourOrders = () => {
         }
 
         if (form.filterOption === 'produto') {
-            filteredOrdersAux = orders.filter(order => order.produtos.some(produto => produto.nome.toLowerCase().includes(form.filterValue.toString().toLowerCase())) )
+            filteredOrdersAux = orders.filter(order => order.produtos.some(produto => produto.nome.toLowerCase().includes(form.filterValue.toString().toLowerCase())))
             setFilteredOrders(filteredOrdersAux);
 
             if (form.filterData) {
@@ -154,7 +154,7 @@ export const YourOrders = () => {
 
         return (
             <>
-                <div className="w-full h-[75%] overflow-y-auto py-1 mobile:h-[70%]">
+                <div className="w-full h-[75%] overflow-y-auto py-1 mobile:h-[60%]">
                     {filteredOrders.map(order => <YourOrderRow id={order.id} cliente={order.cliente} data={order.data} produtos={order.produtos} quantidades={order.quantidades} total_pedido={order.total_pedido} total_produtos={order.total_produtos} key={order.id} />)}
                 </div>
             </>
@@ -181,20 +181,22 @@ export const YourOrders = () => {
     return (
         <>
             <div className="p-4 h-full text-main">
-                <form onSubmit={handleFilter} className="flex gap-3 items-center">
-                    <p className="font-semibold">Filtrar por:</p>
-                    <SelectFilter name="filterOption" filterOptions={filterOptions} />
-                    <div className="w-40">
+                <form onSubmit={handleFilter} className="flex gap-3 items-center mobile:flex-wrap mobile:items-start mobile:mb-2">
+                    <div className="flex items-center gap-3">
+                        <p className="font-semibold mobile:text-sm">Filtrar por:</p>
+                        <SelectFilter name="filterOption" filterOptions={filterOptions} />
+                    </div>
+                    <div className="w-40 mobile:w-32">
                         <TextInput label="Filtro" inputSize="small" name="filterValue" />
                     </div>
-                    <div className="w-40">
+                    <div className="w-40 mobile:w-32">
                         <DateInput label="Filtrar data" inputSize="small" name="filterData" />
                     </div>
                     <div className="w-24">
                         <PrimaryButton label="filtrar" type="submit" />
                     </div>
                 </form>
-                <div className="text-right">
+                <div className="text-right mobile:text-sm">
                     <span className="text-highlight">{orders.length}</span> pedidos realizados por você
                 </div>
                 <div className="w-full mt-3 border-b border-main grid grid-cols-4 text-start">

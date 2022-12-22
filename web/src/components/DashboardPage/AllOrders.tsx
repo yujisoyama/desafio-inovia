@@ -155,7 +155,7 @@ export const AllOrders = () => {
 
         return (
             <>
-                <div className="w-full h-[75%] overflow-y-auto py-1 mobile:h-[70%]">
+                <div className="w-full h-[75%] overflow-y-auto py-1 mobile:h-[60%]">
                     {filteredOrders.map(order => <OrderRow id={order.id} cliente={order.cliente} data={order.data} produtos={order.produtos} quantidades={order.quantidades} total_pedido={order.total_pedido} total_produtos={order.total_produtos} key={order.id} />)}
                 </div>
             </>
@@ -182,20 +182,22 @@ export const AllOrders = () => {
     return (
         <>
             <div className="p-4 h-full text-main">
-                <form onSubmit={handleFilter} className="flex gap-3 items-center">
-                    <p className="font-semibold">Filtrar por:</p>
-                    <SelectFilter name="filterOption" filterOptions={filterOptions} />
-                    <div className="w-40">
+                <form onSubmit={handleFilter} className="flex gap-3 items-center mobile:flex-wrap mobile:items-start mobile:mb-2">
+                    <div className="flex items-center gap-3">
+                        <p className="font-semibold mobile:text-sm">Filtrar por:</p>
+                        <SelectFilter name="filterOption" filterOptions={filterOptions} />
+                    </div>
+                    <div className="w-40 mobile:w-32">
                         <TextInput label="Filtro" inputSize="small" name="filterValue" />
                     </div>
-                    <div className="w-40">
+                    <div className="w-40 mobile:w-32">
                         <DateInput label="Filtrar data" inputSize="small" name="filterData" />
                     </div>
                     <div className="w-24">
                         <PrimaryButton label="filtrar" type="submit" />
                     </div>
                 </form>
-                <div className="text-right">
+                <div className="text-right mobile:text-sm">
                     <span className="text-highlight">{orders.length}</span> pedidos realizados no total
                 </div>
                 <div className="w-full mt-3 border-b border-main grid grid-cols-4 text-start">

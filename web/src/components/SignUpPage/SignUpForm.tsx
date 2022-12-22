@@ -83,7 +83,7 @@ export const SignUpForm = () => {
 
     if (clienteCreated) {
         return (
-            <div className="w-[400px] p-8 mx-auto my-12 opacity-95 rounded-[15px] bg-background font-open relative text-main">
+            <div className="w-[400px] p-8 mx-auto my-12 opacity-95 rounded-[15px] bg-background font-open relative text-main mobile:w-[350px]">
                 <CheckSquare className="mx-auto" size={40} color="#39DCC1" weight="bold" />
                 <h1 className="text-highlight text-center font-extrabold text-2xl mt-3 mb-4">Conta criada!</h1>
                 <p className="mb-4">Olá {clienteName}, </p>
@@ -95,7 +95,7 @@ export const SignUpForm = () => {
     }
 
     return (
-        <div className="w-[400px] p-8 mx-auto my-12 opacity-95 rounded-[15px] bg-background font-open relative">
+        <div className="w-[400px] p-8 mx-auto my-12 opacity-95 rounded-[15px] bg-background font-open relative mobile:w-[350px]">
             <NotePencil className="mx-auto" size={40} color="#fffffe" weight="bold" />
             <h1 className="text-main text-center font-extrabold text-2xl mt-3 mb-7">Cadastro</h1>
             <div>

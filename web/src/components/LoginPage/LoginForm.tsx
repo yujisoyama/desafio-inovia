@@ -51,7 +51,7 @@ export const LoginForm = () => {
     }
 
     return (
-        <div className="w-[400px] p-8 mx-auto my-12 opacity-95 rounded-[15px] bg-background font-open relative">
+        <div className="w-[400px] p-8 mx-auto my-12 opacity-95 rounded-[15px] bg-background font-open relative mobile:w-[350px]">
             <SignIn className="mx-auto" size={40} color="#fffffe" weight="bold" />
             <h1 className="text-main text-center font-extrabold text-2xl mt-3 mb-7">Faça o login na sua conta</h1>
             <div>

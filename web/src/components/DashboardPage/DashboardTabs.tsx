@@ -13,7 +13,7 @@ export const DashboardTabs = () => {
                     <Tabs.Trigger className={`px-4 ml-4 border-b-2 ${tabOpen ? 'text-highlight border-highlight' : 'text-secondary border-background hover:cursor-pointer hover:text-main duration-150'}`} value="allOrders">
                         Todos os pedidos
                     </Tabs.Trigger>
-                    <Tabs.Trigger className={`px-4 border-b-2 ${!tabOpen ? 'text-highlight border-highlight' : 'text-secondary border-background hover:cursor-pointer hover:text-main duration-150'} mobile:text-base`} value="yourOrders">
+                    <Tabs.Trigger className={`px-4 border-b-2 ${!tabOpen ? 'text-highlight border-highlight' : 'text-secondary border-background hover:cursor-pointer hover:text-main duration-150'}`} value="yourOrders">
                         Seus pedidos
                     </Tabs.Trigger>
                 </Tabs.List>

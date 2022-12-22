@@ -7,6 +7,7 @@ import { SecondaryButton } from "./SecondaryButton";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { PrimaryButton } from "./PrimaryButton";
+import { useNavigate } from "react-router-dom";
 
 interface IProduto {
     produtoId: string;
@@ -16,7 +17,7 @@ interface IProduto {
 
 interface IQuantidade {
     produtoId: string;
-    quantidade: 1;
+    quantidade: number;
 }
 
 export interface IOrderRowProps {
@@ -40,6 +41,7 @@ export const YourOrderRow = ({ id, cliente, produtos, quantidades, total_produto
     const { token } = useCliente();
     const [isSelected, setIsSelected] = useState(false);
     const [orderProducts, setOrderProducts] = useState<IOrderProducts[]>([]);
+    const navigate = useNavigate();
     const date = data.split('T')[0];
 
     const handleIsSelected = () => {
@@ -48,7 +50,7 @@ export const YourOrderRow = ({ id, cliente, produtos, quantidades, total_produto
 
     const handleCancelOrder = async () => {
         try {
-            await api.post(`/pedidos/${id}`, {}, {
+            await api.post(`/pedidos/remove/${id}`, {}, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
@@ -67,6 +69,10 @@ export const YourOrderRow = ({ id, cliente, produtos, quantidades, total_produto
                 theme: "dark",
             });
         }
+    }
+
+    const handleEditOrder = () => {
+       navigate(`/pedido/${id}`);
     }
 
     useEffect(() => {
@@ -107,7 +113,7 @@ export const YourOrderRow = ({ id, cliente, produtos, quantidades, total_produto
                             <SecondaryButton label='cancelar pedido' onClick={handleCancelOrder} />
                         </div>
                         <div className="w-[160px]">
-                            <PrimaryButton label='editar pedido' />
+                            <PrimaryButton label='editar pedido' onClick={handleEditOrder} />
                         </div>
                     </div>
                 </div>

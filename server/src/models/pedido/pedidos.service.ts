@@ -4,7 +4,7 @@ import { CustomBadRequests } from 'src/utils/CustomBadRequests';
 import { Repository } from 'typeorm';
 import { Cliente } from '../cliente/cliente.entity';
 import { ProdutosService } from '../produto/produtos.service';
-import { ICriarPedido } from './interfaces/pedidos.interfaces';
+import { IAtualizarPedido, ICriarPedido } from './interfaces/pedidos.interfaces';
 import { Pedido } from './pedido.entity';
 import { ObjectID } from 'mongodb';
 
@@ -74,9 +74,44 @@ export class PedidosService {
         }
 
         await this.pedidoRepository.update({ id: pedidoId }, { ativo: false });
-        
+
         return this.pedidoRepository.createQueryBuilder('pedido')
             .where('pedido.id = :pedidoId', { pedidoId })
             .execute();
+    }
+
+    async getPedidoById(pedidoId: number): Promise<Pedido> {
+        return await this.pedidoRepository.createQueryBuilder('pedido')
+            .select(['pedido.id as id', 'pedido.clienteId as clienteId', 'pedido.produtos as produtos', 'pedido.quantidades as quantidades', 'pedido.total_produtos as total_produtos', 'pedido.total_pedido as total_pedido', 'pedido.data as data'])
+            .where('pedido.id = :pedidoId', { pedidoId })
+            .execute();
+    }
+
+    async updatePedidoId(updatePedido: IAtualizarPedido, pedidoId: number): Promise<Pedido | CustomBadRequests> {
+        const pedido = await this.pedidoRepository.findOneBy({ id: pedidoId });
+
+        for (let i = 0; i < pedido.produtos.length; i++) {
+            const produtoId = new ObjectID(pedido.produtos[i].produtoId);
+            const produto = await this.produtosService.getProdutoById(produtoId);
+            if (produto.estoque + pedido.quantidades[i].quantidade < updatePedido.quantidades[i].quantidade) {
+                return new CustomBadRequests(`Estoque do produto ${updatePedido.produtos[i].produtoId} indisponível para esta edição`, 'quantidade');
+            }
+        }
+
+        for (let i = 0; i < pedido.produtos.length; i++) {
+            const produtoId = new ObjectID(pedido.produtos[i].produtoId);
+            const produtoInitialState = await this.produtosService.getProdutoById(produtoId);
+            await this.produtosService.updateEstoqueProdutoWhenCancelingOrder(produtoInitialState, pedido.quantidades[i].quantidade);
+            const produto = await this.produtosService.getProdutoById(produtoId);
+            await this.produtosService.updateEstoqueProdutoWhenCreatingOrder(produto, updatePedido.quantidades[i].quantidade)
+        }
+
+        pedido.produtos = updatePedido.produtos;
+        pedido.quantidades = updatePedido.quantidades;
+        pedido.total_produtos = updatePedido.total_produtos;
+        pedido.total_pedido = updatePedido.total_pedido;
+        pedido.data = new Date();
+        await this.pedidoRepository.update({ id: pedidoId }, pedido);
+        return pedido;
     }
 }

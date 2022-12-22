@@ -1,6 +1,6 @@
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
-import { InputHTMLAttributes } from 'react';
+import { ChangeEvent, InputHTMLAttributes } from 'react';
 import { styled } from '@mui/material/styles';
 
 interface ITextInputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -9,6 +9,7 @@ interface ITextInputProps extends InputHTMLAttributes<HTMLInputElement> {
     error?: boolean;
     helperText?: string;
     defaultValue?: string;
+    onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const CssTextField = styled(TextField)({
@@ -34,7 +35,7 @@ const CssTextField = styled(TextField)({
     },
 });
 
-export const TextInput = ({ id, name, placeholder, type, label, inputSize, error, helperText, defaultValue }: ITextInputProps) => {
+export const TextInput = ({ id, name, placeholder, type, label, inputSize, error, helperText, defaultValue, onChange }: ITextInputProps) => {
     return (
         <CssTextField
             fullWidth
@@ -50,6 +51,7 @@ export const TextInput = ({ id, name, placeholder, type, label, inputSize, error
             error={error}
             helperText={helperText}
             defaultValue={defaultValue}
+            onChange={onChange}
         />
     );
 }

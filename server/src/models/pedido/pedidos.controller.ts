@@ -2,6 +2,7 @@ import { Body, Controller, Get, HttpCode, HttpException, HttpStatus, Param, Post
 import { Response } from 'express';
 import { CustomBadRequests } from 'src/utils/CustomBadRequests';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { AtualizarPedidoDto } from './dto/atualizar-pedido.dto';
 import { CriarPedidoDto } from './dto/criar-pedido.dto';
 import { PedidosService } from './pedidos.service';
 
@@ -51,11 +52,35 @@ export class PedidosController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Post('/:pedidoId')
+    @Post('/remove/:pedidoId')
     @HttpCode(200)
-    async cancelPedido(@Param('pedidoId') pedidoId: number) {
+    async cancelPedidoById(@Param('pedidoId') pedidoId: number) {
         try {
             return await this.pedidosServices.cancelPedido(pedidoId);
+        } catch (error) {
+            console.log(error);
+            throw new HttpException("Unexpected Error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Get('/:pedidoId')
+    @HttpCode(200)
+    async getPedidoById(@Param('pedidoId') pedidoId: number) {
+        try {
+            return await this.pedidosServices.getPedidoById(pedidoId);
+        } catch (error) {
+            console.log(error);
+            throw new HttpException("Unexpected Error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Post('/:pedidoId')
+    @HttpCode(200)
+    async updatePedidoById(@Param('pedidoId') pedidoId: number, @Body() atualizarPedidoDto: AtualizarPedidoDto) {
+        try {
+            return await this.pedidosServices.updatePedidoId(atualizarPedidoDto, pedidoId);
         } catch (error) {
             console.log(error);
             throw new HttpException("Unexpected Error", HttpStatus.INTERNAL_SERVER_ERROR);

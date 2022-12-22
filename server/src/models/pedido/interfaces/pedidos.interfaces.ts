@@ -6,3 +6,10 @@ export interface ICriarPedido {
     total_produtos: number;
     total_pedido: number;
 }
+
+export interface IAtualizarPedido {
+    produtos: Produtos[];
+    quantidades: Quantidades[];
+    total_produtos: number;
+    total_pedido: number;
+}

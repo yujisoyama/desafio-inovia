@@ -6,7 +6,7 @@ import { useAppDispatch } from "../store/store";
 import { Loading } from "./Loading";
 import { Product } from "./Product";
 
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export const AllProducts = () => {

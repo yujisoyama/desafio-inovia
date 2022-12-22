@@ -14,7 +14,7 @@ import { ClientesModule } from '../cliente/clientes.module';
         PassportModule,
         JwtModule.register({
             secret: process.env.JWT_PASS,
-            signOptions: { expiresIn: '9000s' },
+            signOptions: { expiresIn: '900s' },
         }),
         ClientesModule,
     ],

@@ -9,6 +9,7 @@ import { api } from "../../Api"
 import { useCliente } from "../../context/ClienteContext"
 import { Loading } from "../common/Loading"
 import { ArrowDown, ArrowUp } from "phosphor-react"
+import { useNavigate } from "react-router-dom"
 
 interface ISortColumn {
     column: number;
@@ -34,6 +35,7 @@ export const AllOrders = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [sortTable, setSortTable] = useState<ISortColumn[]>(SORT_TABLE_DEFAULT);
     const [filteredOrders, setFilteredOrders] = useState<IOrderRowProps[]>([]);
+    const navigate = useNavigate();
 
     const fetchOrders = async () => {
         setIsLoading(true)
@@ -45,9 +47,11 @@ export const AllOrders = () => {
             });
             setOrders(result.data);
             setFilteredOrders(result.data);
-        } catch (error) {
+        } catch (error: any) {
             console.log(error);
-
+            if (error.response.status === 401) {
+                navigate('/');
+            }
         } finally {
             setIsLoading(false);
         }

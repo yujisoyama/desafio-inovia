@@ -20,9 +20,9 @@ export const ShoppingCartProduct = ({ produtoId, nome, quantidade, preco, imagem
     return (
         <div className="border-b border-b-background w-full py-2">
             <div className="flex justify-between">
-                <img className="w-20" src={imagem} alt="" />
+                <img className="w-20 mobile:w-14" src={imagem} alt="" />
                 <div className="w-52 flex flex-col justify-around">
-                    <p className="text-sm text-main ">{nome}</p>
+                    <p className="text-sm text-main">{nome}</p>
                     <p className="text-xs text-secondary">{quantidade} unidade(s)</p>
                     <p className="text-xs text-highlight">R$ {preco * quantidade / 100} (valor com imposto)</p>
                 </div>

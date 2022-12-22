@@ -76,7 +76,7 @@ export const ShoppingCart = () => {
                 <ShoppingCartSimple className='p-2 rounded-lg border text-highlight border-background hover:cursor-pointer hover:border-highlight duration-100' size={58} color="#1de9b6" weight="bold" onClick={toggleDrawer(true)} />
             </Badge>
             <Drawer anchor='right' open={isDrawerOpen} onClose={toggleDrawer(false)} >
-                <div className='bg-backgroundLight w-96 h-screen flex flex-col p-6'>
+                <div className='bg-backgroundLight w-96 h-screen flex flex-col p-6 mobile:w-80'>
                     <div className='h-full'>
                         {shoppingCart.produtos.length ? (
                             <div className='h-full flex flex-col justify-between'>

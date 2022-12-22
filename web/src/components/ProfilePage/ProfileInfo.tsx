@@ -105,15 +105,15 @@ export const ProfileInfo = () => {
     }, [avatar])
 
     return (
-        <div className=" bg-background p-8 w-3/5 mx-auto mt-10 mb-16 rounded-xl border border-highlight">
+        <div className="bg-background p-8 w-3/5 mx-auto mt-10 mb-16 rounded-xl border border-highlight mobile:w-[300px]">
             <p className="text-main text-2xl font-bold mb-8">Editar Perfil</p>
             <div className="flex flex-wrap justify-evenly gap-10">
                 <div className="flex flex-col gap-6">
-                    <img className="mx-auto w-72 h-72 rounded-full" src={cliente.foto_perfil ? cliente.foto_perfil : defaultAvatar} alt="avatar" />
+                    <img className="mx-auto w-72 h-72 rounded-full mobile:w-32 mobile:h-32" src={cliente.foto_perfil ? cliente.foto_perfil : defaultAvatar} alt="avatar" />
                     <label htmlFor="avatar" className="mx-auto w-40 h-10 border border-highlight text-highlight bg-background rounded-md pt-[5.5px] pl-[18px] font-semibold hover:cursor-pointer hover:bg-[#092336] duration-300">
                         MUDAR AVATAR
                     </label>
-                    <input type="file" id="avatar" className="opacity-0 absolute" onChange={handleUploadAvatar} />
+                    <input type="file" id="avatar" className="opacity-0 absolute mobile:w-2" onChange={handleUploadAvatar} />
                     {avatar && !uploadError && <p className="text-highlight text-center w-72">{avatar.name}</p>}
                     {uploadError && <p className="text-alert text-center w-72">Este arquivo não é uma imagem.</p>}
                 </div>

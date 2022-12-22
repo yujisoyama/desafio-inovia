@@ -9,13 +9,13 @@ export const NotLoggedHeader = () => {
     const goToSignUp = () => navigate('/signup');
     
     return (
-        <>
-            <div className='w-20'>
+        <div className="flex gap-3 items-center mobile:w-full">
+            <div className='w-20 mobile:w-1/2'>
                 <PrimaryButton label='Login' onClick={goToLogin} />
             </div>
-            <div className='w-36'>
+            <div className='w-36 mobile:w-1/2'>
                 <SecondaryButton label='Cadastre-se' onClick={goToSignUp} />
             </div>
-        </>
+        </div>
     )
 }

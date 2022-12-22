@@ -20,7 +20,7 @@ module.exports = {
       alert: '#EF4565'
     },
     screens: {
-      'mobile': { 'max': '500px' }
+      'mobile': { 'max': '700px' }
     },
     fontFamily: {
       noto: ['Noto Sans', 'sans-serif'],
